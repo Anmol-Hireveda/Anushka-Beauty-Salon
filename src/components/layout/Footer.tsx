@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Instagram, MessageCircle, Mail, Heart } from 'lucide-react';
+import { Instagram, MessageCircle, Mail, Heart, Phone } from 'lucide-react';
 
 const footerLinks = [
   { name: 'Home', href: '#home' },
@@ -12,8 +12,8 @@ const footerLinks = [
 
 const socialLinks = [
   { icon: Instagram, href: 'https://instagram.com/makeoveranushka', label: 'Instagram' },
-  { icon: MessageCircle, href: 'https://wa.me/919999999999', label: 'WhatsApp' },
-  { icon: Mail, href: 'mailto:makeoveranushka@gmail.com', label: 'Email' },
+  { icon: MessageCircle, href: 'https://wa.me/919694834669', label: 'WhatsApp' },
+  { icon: Phone, href: 'tel:+917976008850', label: 'Phone' },
 ];
 
 export function Footer() {
@@ -38,12 +38,12 @@ export function Footer() {
               }}
               className="font-heading text-2xl font-semibold text-foreground tracking-wide inline-block mb-4"
             >
-              <span className="text-foreground">Makeover by </span>
-              <span className="text-primary">Anushka</span>
+              <span className="text-foreground">Anushka </span>
+              <span className="text-primary">Beauty Salon</span>
             </a>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Professional makeup artist specializing in bridal, party, and editorial looks.
-              Transforming your beauty dreams into reality.
+              Expert in Bridal & Party Makeup, Hair Styling & Coloring, Facials & Skin Treatments, 
+              Nail Art & Extensions. Where beauty meets confidence.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
@@ -92,17 +92,19 @@ export function Footer() {
             </h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="tel:+919999999999" className="hover:text-primary transition-colors">
-                  +91 99999 99999
+                <a href="tel:+917976008850" className="hover:text-primary transition-colors">
+                  📞 +91 79760 08850
                 </a>
               </li>
               <li>
-                <a href="mailto:makeoveranushka@gmail.com" className="hover:text-primary transition-colors">
-                  makeoveranushka@gmail.com
+                <a href="https://wa.me/919694834669" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                  📌 WhatsApp: +91 96948 34669
                 </a>
               </li>
-              <li>Delhi NCR, India</li>
-              <li>Mon-Sun: 9AM - 8PM</li>
+              <li className="leading-relaxed">
+                📍 48, Rajoriya Bhawan, near Dhruva Public School, Karbala Chouraha, Amer Road, Jaipur
+              </li>
+              <li>⏰ Mon-Sun: 9AM - 8PM</li>
             </ul>
           </div>
         </div>
@@ -111,10 +113,10 @@ export function Footer() {
         <div className="pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Makeover by Anushka. All rights reserved.
+              © {new Date().getFullYear()} Anushka Beauty Salon. All rights reserved.
             </p>
             <p className="text-sm text-muted-foreground flex items-center gap-1">
-              Made with <Heart className="w-4 h-4 text-primary fill-primary" /> for beauty lovers
+              Made with <Heart className="w-4 h-4 text-primary fill-primary" /> in Jaipur
             </p>
           </div>
         </div>
