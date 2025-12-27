@@ -1,7 +1,14 @@
 import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Check, Crown, Sparkles, Star, Scissors, Palette, Heart, ChevronDown, X } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import { Check, Crown, Sparkles, Scissors, Palette, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 
 const services = [
   {
@@ -119,96 +126,108 @@ const salonServices = [
   { name: 'Global Color', price: '₹3,000+' },
 ];
 
+interface Category {
+  name: string;
+  description: string;
+  styles: string[];
+  price: string;
+}
+
 interface CategoryCardProps {
-  category: {
-    name: string;
-    description: string;
-    styles: string[];
-    price: string;
-  };
-  isExpanded: boolean;
-  onToggle: () => void;
+  category: Category;
+  onClick: () => void;
   icon: React.ReactNode;
 }
 
-function CategoryCard({ category, isExpanded, onToggle, icon }: CategoryCardProps) {
+function CategoryCard({ category, onClick, icon }: CategoryCardProps) {
   return (
     <motion.div
-      layout
-      className={`bg-card/50 border transition-all duration-300 cursor-pointer overflow-hidden ${
-        isExpanded ? 'border-primary/50 shadow-gold' : 'border-border hover:border-primary/30'
-      }`}
-      onClick={onToggle}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className="bg-card/50 border border-border hover:border-primary/50 transition-all duration-300 cursor-pointer p-5 hover:shadow-gold"
+      onClick={onClick}
     >
-      <div className="p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-sm ${isExpanded ? 'bg-primary/20' : 'bg-secondary'}`}>
-              {icon}
-            </div>
-            <div>
-              <h4 className="font-heading text-lg font-semibold text-foreground">{category.name}</h4>
-              <p className="text-sm text-muted-foreground">{category.description}</p>
-            </div>
-          </div>
-          <motion.div
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ChevronDown className={`w-5 h-5 ${isExpanded ? 'text-primary' : 'text-muted-foreground'}`} />
-          </motion.div>
+      <div className="flex items-center gap-3">
+        <div className="p-2 rounded-sm bg-secondary">
+          {icon}
+        </div>
+        <div>
+          <h4 className="font-heading text-lg font-semibold text-foreground">{category.name}</h4>
+          <p className="text-sm text-muted-foreground">{category.description}</p>
         </div>
       </div>
-      
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="px-5 pb-5 border-t border-border/50">
-              <div className="pt-4">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm text-muted-foreground">Starting from</span>
-                  <span className="font-heading text-xl font-semibold text-primary">{category.price}</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {category.styles.map((style) => (
-                    <div
-                      key={style}
-                      className="flex items-center gap-2 text-sm text-foreground/80"
-                    >
-                      <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span>{style}</span>
-                    </div>
-                  ))}
-                </div>
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
-                  size="sm"
-                >
-                  Book This Style
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className="mt-3 text-right">
+        <span className="text-primary font-semibold text-sm">{category.price}</span>
+      </div>
     </motion.div>
+  );
+}
+
+interface ServiceModalProps {
+  category: Category | null;
+  isOpen: boolean;
+  onClose: () => void;
+  type: 'makeup' | 'hair';
+}
+
+function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
+  if (!category) return null;
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md border-primary/20">
+        <DialogHeader>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 rounded-sm bg-primary/20">
+              {type === 'makeup' ? (
+                <Sparkles className="w-5 h-5 text-primary" />
+              ) : (
+                <Scissors className="w-5 h-5 text-primary" />
+              )}
+            </div>
+            <DialogTitle className="font-heading text-xl">{category.name}</DialogTitle>
+          </div>
+          <DialogDescription>{category.description}</DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          <div className="flex items-center justify-between py-2 border-b border-border">
+            <span className="text-sm text-muted-foreground">Starting from</span>
+            <span className="font-heading text-2xl font-semibold text-primary">{category.price}</span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {category.styles.map((style) => (
+              <div
+                key={style}
+                className="flex items-center gap-2 text-sm text-foreground/80 p-2 bg-secondary/50 rounded-sm"
+              >
+                <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                <span>{style}</span>
+              </div>
+            ))}
+          </div>
+
+          <Button
+            onClick={() => {
+              onClose();
+              document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            Book This Style
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 export function ServicesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [expandedMakeup, setExpandedMakeup] = useState<number | null>(null);
-  const [expandedHair, setExpandedHair] = useState<number | null>(null);
+  const [selectedMakeup, setSelectedMakeup] = useState<Category | null>(null);
+  const [selectedHair, setSelectedHair] = useState<Category | null>(null);
 
   const scrollToContact = () => {
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -327,13 +346,12 @@ export function ServicesSection() {
           </h3>
           <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {makeupCategories.map((category, index) => (
+            {makeupCategories.map((category) => (
               <CategoryCard
                 key={category.name}
                 category={category}
-                isExpanded={expandedMakeup === index}
-                onToggle={() => setExpandedMakeup(expandedMakeup === index ? null : index)}
-                icon={<Sparkles className={`w-5 h-5 ${expandedMakeup === index ? 'text-primary' : 'text-muted-foreground'}`} />}
+                onClick={() => setSelectedMakeup(category)}
+                icon={<Sparkles className="w-5 h-5 text-muted-foreground" />}
               />
             ))}
           </div>
@@ -352,13 +370,12 @@ export function ServicesSection() {
           </h3>
           <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {hairstyleCategories.map((category, index) => (
+            {hairstyleCategories.map((category) => (
               <CategoryCard
                 key={category.name}
                 category={category}
-                isExpanded={expandedHair === index}
-                onToggle={() => setExpandedHair(expandedHair === index ? null : index)}
-                icon={<Scissors className={`w-5 h-5 ${expandedHair === index ? 'text-primary' : 'text-muted-foreground'}`} />}
+                onClick={() => setSelectedHair(category)}
+                icon={<Scissors className="w-5 h-5 text-muted-foreground" />}
               />
             ))}
           </div>
@@ -388,6 +405,20 @@ export function ServicesSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Modals */}
+      <ServiceModal
+        category={selectedMakeup}
+        isOpen={!!selectedMakeup}
+        onClose={() => setSelectedMakeup(null)}
+        type="makeup"
+      />
+      <ServiceModal
+        category={selectedHair}
+        isOpen={!!selectedHair}
+        onClose={() => setSelectedHair(null)}
+        type="hair"
+      />
     </section>
   );
 }
