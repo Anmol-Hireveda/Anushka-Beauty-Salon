@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Check, Crown, Sparkles, Star } from 'lucide-react';
+import { Check, Crown, Sparkles, Star, Scissors, Palette, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const services = [
@@ -22,40 +22,73 @@ const services = [
   },
   {
     icon: Sparkles,
-    name: 'Engagement Makeup',
-    description: 'Stunning engagement look to make you shine on your special day with long-lasting premium products.',
-    price: '₹8,000 onwards',
-    duration: '2-3 hours',
+    name: 'Party & Glam Makeup',
+    description: 'Glamorous looks for parties, receptions, sangeet and special occasions. From soft glam to heavy makeup.',
+    price: '₹4,000 onwards',
+    duration: '1.5-2 hours',
     features: [
-      'Personalized consultation',
-      'Long-lasting makeup',
-      'Hairstyling included',
-      'False lashes',
-      'Touch-up provided',
+      'Natural/Light Makeup',
+      'Party Wear Makeup',
+      'Evening/Glam Makeup',
+      'Photoshoot Makeup',
+      'Traditional Makeup',
+      'False lashes included',
     ],
     featured: false,
   },
   {
-    icon: Star,
-    name: 'Party Makeup',
-    description: 'Glamorous party look perfect for weddings, receptions, sangeet and special occasions.',
-    price: '₹4,000 onwards',
-    duration: '1.5-2 hours',
+    icon: Scissors,
+    name: 'Hair Services',
+    description: 'Complete hair solutions from cuts to treatments. Expert styling for all occasions.',
+    price: '₹500 onwards',
+    duration: '1-3 hours',
     features: [
-      'Customized look',
-      'Premium products',
-      'False lashes',
-      'Setting spray',
+      'Hair Cut & Styling',
+      'Hair Coloring & Highlights',
+      'Keratin Treatment',
+      'Smoothening & Rebonding',
+      'Hair Spa & Botox',
+      'Bridal Hairstyles',
     ],
     featured: false,
   },
 ];
 
-const addOns = [
-  { name: 'Reception Makeup', price: '₹10,000' },
-  { name: 'Hair Styling Only', price: '₹2,000' },
-  { name: 'Travel (Outside City)', price: '₹1,500+' },
-  { name: 'Pre-Bridal Packages', price: 'On Request' },
+const makeupTypes = [
+  'No-Makeup Makeup',
+  'Light Makeup',
+  'Natural Makeup',
+  'Daily Wear Makeup',
+  'Party Wear Makeup',
+  'Evening Makeup',
+  'Glam Makeup',
+  'Heavy Makeup',
+  'Engagement Makeup',
+  'Reception Makeup',
+  'HD Makeup',
+  'Airbrush Makeup',
+];
+
+const hairstyles = [
+  'Open Hair',
+  'Straight Hair',
+  'Curly/Wavy Hair',
+  'Ponytail',
+  'Bun Hairstyles',
+  'Braided Hairstyles',
+  'French/Dutch Braid',
+  'Fishtail Braid',
+];
+
+const salonServices = [
+  { name: 'Facial & Clean-Up', price: '₹500+' },
+  { name: 'Bleach & Waxing', price: '₹200+' },
+  { name: 'Threading', price: '₹50+' },
+  { name: 'Manicure & Pedicure', price: '₹400+' },
+  { name: 'Body Polishing', price: '₹1,500+' },
+  { name: 'Nail Art & Extensions', price: '₹500+' },
+  { name: 'Hair Protein Treatment', price: '₹2,000+' },
+  { name: 'Global Color', price: '₹3,000+' },
 ];
 
 export function ServicesSection() {
@@ -79,14 +112,14 @@ export function ServicesSection() {
           className="text-center mb-16"
         >
           <span className="text-primary text-sm uppercase tracking-[0.2em] font-medium">
-            Services
+            Our Services
           </span>
           <h2 className="font-heading text-4xl md:text-5xl font-semibold text-foreground mt-4 mb-6">
-            Tailored <span className="text-gradient-gold">Experiences</span>
+            Complete Beauty <span className="text-gradient-gold">Solutions</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Every service is crafted to bring out your unique beauty. Choose the experience
-            that suits your special occasion.
+            From makeup to hair styling, skin treatments to nail art - we offer complete beauty 
+            services to make your special occasions unforgettable.
           </p>
         </motion.div>
 
@@ -166,18 +199,65 @@ export function ServicesSection() {
           ))}
         </div>
 
-        {/* Add-ons */}
+        {/* Makeup Types */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mb-12"
+        >
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-6 flex items-center justify-center gap-2">
+            <Palette className="w-6 h-6 text-primary" />
+            Makeup Styles We Offer
+          </h3>
+          <div className="flex flex-wrap justify-center gap-3">
+            {makeupTypes.map((type) => (
+              <span
+                key={type}
+                className="px-4 py-2 bg-card/50 border border-border text-foreground/80 text-sm hover:border-primary/50 transition-colors"
+              >
+                {type}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Hairstyles */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="mb-12"
+        >
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-6 flex items-center justify-center gap-2">
+            <Scissors className="w-6 h-6 text-primary" />
+            Hairstyle Options
+          </h3>
+          <div className="flex flex-wrap justify-center gap-3">
+            {hairstyles.map((style) => (
+              <span
+                key={style}
+                className="px-4 py-2 bg-card/50 border border-border text-foreground/80 text-sm hover:border-primary/50 transition-colors"
+              >
+                {style}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Salon Services */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-2xl mx-auto"
+          className="max-w-3xl mx-auto"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-8">
-            Add-on Services
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-8 flex items-center justify-center gap-2">
+            <Heart className="w-6 h-6 text-primary" />
+            Salon & Beauty Services
           </h3>
           <div className="grid sm:grid-cols-2 gap-4">
-            {addOns.map((addon) => (
+            {salonServices.map((addon) => (
               <div
                 key={addon.name}
                 className="flex items-center justify-between p-4 bg-card/50 border border-border"

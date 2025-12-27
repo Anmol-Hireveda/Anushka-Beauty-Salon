@@ -65,7 +65,7 @@ export function HeroSection() {
         >
           <Sparkles className="w-5 h-5 text-primary" />
           <span className="text-sm uppercase tracking-[0.3em] text-primary font-medium">
-            Professional Makeup Artist
+            Where Beauty Meets Confidence
           </span>
           <Sparkles className="w-5 h-5 text-primary" />
         </motion.div>
@@ -76,9 +76,9 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="font-heading text-5xl md:text-7xl lg:text-8xl font-semibold text-foreground mb-6 leading-tight"
         >
-          Makeover by
+          Anushka
           <br />
-          <span className="text-gradient-gold">Anushka</span>
+          <span className="text-gradient-gold">Beauty Salon</span>
         </motion.h1>
 
         <motion.p
@@ -87,8 +87,8 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 font-light"
         >
-          Professional makeup artist for bridal, engagement, party & editorial looks.
-          Let me enhance your natural beauty for your special moments.
+          Expert in Bridal & Party Makeup, Hair Styling & Coloring, Facials & Skin Treatments, 
+          Nail Art & Extensions. 12+ years of experience creating stunning looks.
         </motion.p>
 
         <motion.div
@@ -122,9 +122,9 @@ export function HeroSection() {
           className="flex flex-wrap justify-center gap-8 md:gap-16 mt-16 pt-16 border-t border-border/50"
         >
           {[
-            { value: '500+', label: 'Happy Clients' },
-            { value: '10+', label: 'Years Experience' },
-            { value: '50+', label: 'Bridal Looks' },
+            { value: '1000+', label: 'Happy Clients' },
+            { value: '12+', label: 'Years Experience' },
+            { value: '500+', label: 'Bridal Looks' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}

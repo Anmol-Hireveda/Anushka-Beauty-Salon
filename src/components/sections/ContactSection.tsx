@@ -10,20 +10,20 @@ const contactInfo = [
   {
     icon: Phone,
     label: 'Phone',
-    value: '+91 99999 99999',
-    href: 'tel:+919999999999',
+    value: '+91 79760 08850',
+    href: 'tel:+917976008850',
   },
   {
-    icon: Mail,
-    label: 'Email',
-    value: 'makeoveranushka@gmail.com',
-    href: 'mailto:makeoveranushka@gmail.com',
+    icon: MessageCircle,
+    label: 'WhatsApp',
+    value: '+91 96948 34669',
+    href: 'https://wa.me/919694834669',
   },
   {
     icon: MapPin,
     label: 'Location',
-    value: 'Delhi NCR, India',
-    href: '#',
+    value: '48, Rajoriya Bhawan, near Dhruva Public School, Karbala Chouraha, Purana Ramgarh Mod, Amer Road, Jaipur',
+    href: 'https://maps.google.com/?q=Rajoriya+Bhawan+Amer+Road+Jaipur',
   },
   {
     icon: Clock,
@@ -36,14 +36,20 @@ const contactInfo = [
 const socialLinks = [
   {
     icon: Instagram,
-    label: 'Instagram',
+    label: 'Instagram @makeoveranushka',
     href: 'https://instagram.com/makeoveranushka',
+    color: 'hover:text-pink-500',
+  },
+  {
+    icon: Instagram,
+    label: 'Instagram @_anushka__prajapati_',
+    href: 'https://instagram.com/_anushka__prajapati_',
     color: 'hover:text-pink-500',
   },
   {
     icon: MessageCircle,
     label: 'WhatsApp',
-    href: 'https://wa.me/919999999999',
+    href: 'https://wa.me/919694834669',
     color: 'hover:text-green-500',
   },
 ];
@@ -75,7 +81,7 @@ export function ContactSection() {
 
     toast({
       title: 'Message sent!',
-      description: "Thank you for reaching out. I'll get back to you soon.",
+      description: "Thank you for reaching out. We'll get back to you soon.",
     });
 
     setFormData({
@@ -105,11 +111,10 @@ export function ContactSection() {
             Get in Touch
           </span>
           <h2 className="font-heading text-4xl md:text-5xl font-semibold text-foreground mt-4 mb-6">
-            Let's Create <span className="text-gradient-gold">Magic</span>
+            Book Your <span className="text-gradient-gold">Appointment</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Ready to book your appointment or have questions? Reach out and let's discuss
-            how to make your vision come to life.
+            Contact us for your special occasion. Let's make it more special with the soft glam look!
           </p>
         </motion.div>
 
@@ -126,6 +131,8 @@ export function ContactSection() {
                 <a
                   key={item.label}
                   href={item.href}
+                  target={item.href.startsWith('http') ? '_blank' : undefined}
+                  rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="flex items-start gap-4 group"
                 >
                   <div className="p-3 bg-primary/10 rounded-sm group-hover:bg-primary/20 transition-colors">
@@ -143,15 +150,28 @@ export function ContactSection() {
 
             <div className="section-divider" />
 
+            {/* Team */}
+            <div>
+              <h3 className="font-heading text-xl font-semibold text-foreground mb-4">
+                Our Team
+              </h3>
+              <div className="space-y-2 text-muted-foreground text-sm">
+                <p><span className="text-primary">MUA:</span> Sunita Prajapati</p>
+                <p><span className="text-primary">Hairstyle:</span> Anushka Prajapati & Rajshree Prajapati</p>
+              </div>
+            </div>
+
+            <div className="section-divider" />
+
             {/* Social Links */}
             <div>
               <h3 className="font-heading text-xl font-semibold text-foreground mb-4">
-                Follow Along
+                Follow Us
               </h3>
               <div className="flex gap-4">
-                {socialLinks.map((social) => (
+                {socialLinks.map((social, index) => (
                   <a
-                    key={social.label}
+                    key={index}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -169,14 +189,14 @@ export function ContactSection() {
                 Quick Booking
               </h3>
               <p className="text-muted-foreground text-sm mb-4">
-                Prefer to chat directly? Message me on WhatsApp for faster response.
+                Prefer to chat directly? Message us on WhatsApp for faster response.
               </p>
               <Button
                 asChild
                 className="w-full bg-green-600 hover:bg-green-700 text-foreground"
               >
                 <a
-                  href="https://wa.me/919999999999?text=Hi! I'm interested in booking a makeup session."
+                  href="https://wa.me/919694834669?text=Hi! I'm interested in booking a beauty session at Anushka Beauty Salon."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -209,7 +229,7 @@ export function ContactSection() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Jane Doe"
+                    placeholder="Your Name"
                     required
                     className="bg-secondary border-border focus:border-primary"
                   />
@@ -224,7 +244,7 @@ export function ContactSection() {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="jane@example.com"
+                    placeholder="your@email.com"
                     required
                     className="bg-secondary border-border focus:border-primary"
                   />
@@ -261,6 +281,9 @@ export function ContactSection() {
                     <option value="Bridal Makeup">Bridal Makeup</option>
                     <option value="Engagement Makeup">Engagement Makeup</option>
                     <option value="Party Makeup">Party Makeup</option>
+                    <option value="Hair Services">Hair Services</option>
+                    <option value="Facial & Skin Treatment">Facial & Skin Treatment</option>
+                    <option value="Nail Art">Nail Art & Extensions</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
@@ -275,7 +298,7 @@ export function ContactSection() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell me about your event, date, and any specific looks you have in mind..."
+                  placeholder="Tell us about your event, date, and any specific looks you have in mind..."
                   rows={5}
                   required
                   className="bg-secondary border-border focus:border-primary resize-none"

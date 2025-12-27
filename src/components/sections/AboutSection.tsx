@@ -6,23 +6,23 @@ import { Award, Heart, Palette, Users } from 'lucide-react';
 const features = [
   {
     icon: Palette,
-    title: 'Artistic Vision',
-    description: 'Creating unique looks that enhance your natural beauty while expressing your personal style.',
+    title: '12+ Years Experience',
+    description: 'Over a decade of expertise in bridal, party, and all types of makeup and beauty services.',
   },
   {
     icon: Heart,
-    title: 'Passionate Care',
-    description: 'Every client receives personalized attention with premium products and techniques.',
+    title: 'Personalized Care',
+    description: 'Every client receives customized attention with premium products for the perfect look.',
   },
   {
     icon: Award,
-    title: 'Certified Expert',
-    description: 'Trained by industry leaders with certifications in bridal, editorial, and special effects makeup.',
+    title: 'Expert Team',
+    description: 'Led by Sunita Prajapati with skilled hairstylists Anushka & Rajshree Prajapati.',
   },
   {
     icon: Users,
-    title: 'Client-Focused',
-    description: 'Building lasting relationships through exceptional service and stunning results.',
+    title: 'Complete Solutions',
+    description: 'Makeup, hair styling, skin treatments, and nail art - all under one roof.',
   },
 ];
 
@@ -71,7 +71,7 @@ export function AboutSection() {
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
                 <div className="text-center">
-                  <div className="font-heading text-4xl font-bold">10+</div>
+                  <div className="font-heading text-4xl font-bold">12+</div>
                   <div className="text-xs uppercase tracking-wider">Years</div>
                 </div>
               </motion.div>
@@ -85,23 +85,21 @@ export function AboutSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           >
             <span className="text-primary text-sm uppercase tracking-[0.2em] font-medium">
-              About Me
+              About Us
             </span>
             <h2 className="font-heading text-4xl md:text-5xl font-semibold text-foreground mt-4 mb-6">
-              Where Artistry Meets
-              <span className="text-gradient-gold"> Elegance</span>
+              Where Beauty Meets
+              <span className="text-gradient-gold"> Confidence</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              With over a decade of experience in the beauty industry, I've dedicated my career
-              to helping clients look and feel their absolute best. From intimate weddings to
-              high-fashion editorial shoots, I bring the same level of passion and precision
-              to every brush stroke.
+              Welcome to Anushka Beauty Salon! With over 12 years of experience in the beauty industry, 
+              we've dedicated ourselves to helping clients look and feel their absolute best. From intimate 
+              weddings to grand celebrations, we bring passion and precision to every service.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              My philosophy is simple: makeup should enhance your natural beauty, not mask it.
-              Using only premium products and cutting-edge techniques, I create looks that are
-              both timeless and contemporary—designed to make you feel confident and beautiful
-              for your most important moments.
+              Our expert team specializes in bridal & party makeup, hair styling & coloring, 
+              facials & skin treatments, and nail art. Contact and DM us for your special occasion 
+              to make it more special with the soft glam look!
             </p>
 
             {/* Features grid */}

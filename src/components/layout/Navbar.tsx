@@ -57,8 +57,8 @@ export function Navbar() {
               className="font-heading text-2xl md:text-3xl font-semibold text-foreground tracking-wide"
               whileHover={{ scale: 1.02 }}
             >
-              <span className="text-foreground">Makeover by </span>
-              <span className="text-primary">Anushka</span>
+              <span className="text-foreground">Anushka </span>
+              <span className="text-primary">Beauty Salon</span>
             </motion.a>
 
             {/* Desktop Navigation */}
@@ -82,7 +82,7 @@ export function Navbar() {
             {/* Social & CTA */}
             <div className="hidden lg:flex items-center gap-4">
               <motion.a
-                href="https://instagram.com"
+                href="https://instagram.com/makeoveranushka"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/70 hover:text-primary transition-colors"
@@ -91,7 +91,7 @@ export function Navbar() {
                 <Instagram className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="https://wa.me/1234567890"
+                href="https://wa.me/919694834669"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/70 hover:text-primary transition-colors"
@@ -160,7 +160,7 @@ export function Navbar() {
                 <div className="section-divider my-4" />
                 <div className="flex gap-4">
                   <a
-                    href="https://instagram.com"
+                    href="https://instagram.com/makeoveranushka"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 bg-secondary rounded-full text-foreground hover:text-primary transition-colors"
@@ -168,7 +168,7 @@ export function Navbar() {
                     <Instagram className="w-5 h-5" />
                   </a>
                   <a
-                    href="https://wa.me/1234567890"
+                    href="https://wa.me/919694834669"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 bg-secondary rounded-full text-foreground hover:text-primary transition-colors"
@@ -176,7 +176,7 @@ export function Navbar() {
                     <MessageCircle className="w-5 h-5" />
                   </a>
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+917976008850"
                     className="p-3 bg-secondary rounded-full text-foreground hover:text-primary transition-colors"
                   >
                     <Phone className="w-5 h-5" />
