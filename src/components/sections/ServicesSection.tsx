@@ -385,14 +385,13 @@ export function ServicesSection() {
             <Heart className="w-6 h-6 text-primary" />
             Salon & Beauty Services
           </h3>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
             {salonServices.map((addon) => (
               <div
                 key={addon.name}
-                className="flex items-center justify-between p-4 bg-card/50 border border-border hover:border-primary/30 transition-colors"
+                className="flex items-center justify-center p-4 bg-card/50 border border-border hover:border-primary/30 transition-colors text-center"
               >
                 <span className="text-foreground">{addon.name}</span>
-                <span className="text-primary font-semibold">{addon.price}</span>
               </div>
             ))}
           </div>
