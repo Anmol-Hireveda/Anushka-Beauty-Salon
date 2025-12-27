@@ -156,9 +156,6 @@ function CategoryCard({ category, onClick, icon }: CategoryCardProps) {
           <p className="text-sm text-muted-foreground">{category.description}</p>
         </div>
       </div>
-      <div className="mt-3 text-right">
-        <span className="text-primary font-semibold text-sm">{category.price}</span>
-      </div>
     </motion.div>
   );
 }
@@ -191,10 +188,6 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between py-2 border-b border-border">
-            <span className="text-sm text-muted-foreground">Starting from</span>
-            <span className="font-heading text-2xl font-semibold text-primary">{category.price}</span>
-          </div>
 
           <div className="grid grid-cols-2 gap-3">
             {category.styles.map((style) => (
