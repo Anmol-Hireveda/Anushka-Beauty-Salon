@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ChevronDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import heroVideo from '@/assets/hero-video.mp4';
 
 export function HeroSection() {
   const scrollToSection = (href: string) => {
@@ -33,16 +34,13 @@ export function HeroSection() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source
-            src="https://videos.pexels.com/video-files/3997860/3997860-uhd_2560_1440_25fps.mp4"
-            type="video/mp4"
-          />
+          <source src={heroVideo} type="video/mp4" />
         </video>
         
         {/* Overlays for readability */}
-        <div className="absolute inset-0 bg-background/70" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50" />
+        <div className="absolute inset-0 bg-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
       </div>
 
       {/* Decorative elements */}
