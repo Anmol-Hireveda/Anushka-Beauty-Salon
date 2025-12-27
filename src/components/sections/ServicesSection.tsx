@@ -1,6 +1,6 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Check, Crown, Sparkles, Star, Scissors, Palette, Heart } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { Check, Crown, Sparkles, Star, Scissors, Palette, Heart, ChevronDown, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const services = [
@@ -54,30 +54,58 @@ const services = [
   },
 ];
 
-const makeupTypes = [
-  'No-Makeup Makeup',
-  'Light Makeup',
-  'Natural Makeup',
-  'Daily Wear Makeup',
-  'Party Wear Makeup',
-  'Evening Makeup',
-  'Glam Makeup',
-  'Heavy Makeup',
-  'Engagement Makeup',
-  'Reception Makeup',
-  'HD Makeup',
-  'Airbrush Makeup',
+const makeupCategories = [
+  {
+    name: 'Everyday Makeup',
+    description: 'Perfect for daily wear and casual occasions',
+    styles: ['No-Makeup Makeup', 'Light Makeup', 'Natural Makeup', 'Daily Wear Makeup'],
+    price: '₹1,500 onwards',
+  },
+  {
+    name: 'Party & Evening',
+    description: 'Glamorous looks for parties and special events',
+    styles: ['Party Wear Makeup', 'Evening Makeup', 'Glam Makeup', 'Heavy Makeup'],
+    price: '₹3,000 onwards',
+  },
+  {
+    name: 'Occasion Makeup',
+    description: 'Special looks for engagements and receptions',
+    styles: ['Engagement Makeup', 'Reception Makeup', 'Traditional Makeup', 'Photoshoot Makeup'],
+    price: '₹5,000 onwards',
+  },
+  {
+    name: 'Professional Makeup',
+    description: 'HD & Airbrush techniques for flawless finish',
+    styles: ['HD Makeup', 'Airbrush Makeup', 'Long-lasting Makeup', 'Camera-ready Makeup'],
+    price: '₹6,000 onwards',
+  },
 ];
 
-const hairstyles = [
-  'Open Hair',
-  'Straight Hair',
-  'Curly/Wavy Hair',
-  'Ponytail',
-  'Bun Hairstyles',
-  'Braided Hairstyles',
-  'French/Dutch Braid',
-  'Fishtail Braid',
+const hairstyleCategories = [
+  {
+    name: 'Open & Flowing',
+    description: 'Beautiful open hairstyles for any occasion',
+    styles: ['Open Hair', 'Straight Hair', 'Curly Hair', 'Wavy Hair', 'Soft Curls', 'Beach Waves'],
+    price: '₹800 onwards',
+  },
+  {
+    name: 'Updos & Buns',
+    description: 'Elegant updo styles for formal events',
+    styles: ['Messy Bun', 'Bridal Bun', 'Low Bun', 'High Bun', 'Side Bun', 'Twisted Bun'],
+    price: '₹1,200 onwards',
+  },
+  {
+    name: 'Braided Styles',
+    description: 'Intricate braided hairstyles',
+    styles: ['French Braid', 'Dutch Braid', 'Fishtail Braid', 'Side Braid', 'Waterfall Braid', 'Crown Braid'],
+    price: '₹1,000 onwards',
+  },
+  {
+    name: 'Ponytails & More',
+    description: 'Stylish ponytails and combinations',
+    styles: ['High Ponytail', 'Low Ponytail', 'Sleek Ponytail', 'Curly Ponytail', 'Braided Ponytail'],
+    price: '₹600 onwards',
+  },
 ];
 
 const salonServices = [
@@ -91,9 +119,96 @@ const salonServices = [
   { name: 'Global Color', price: '₹3,000+' },
 ];
 
+interface CategoryCardProps {
+  category: {
+    name: string;
+    description: string;
+    styles: string[];
+    price: string;
+  };
+  isExpanded: boolean;
+  onToggle: () => void;
+  icon: React.ReactNode;
+}
+
+function CategoryCard({ category, isExpanded, onToggle, icon }: CategoryCardProps) {
+  return (
+    <motion.div
+      layout
+      className={`bg-card/50 border transition-all duration-300 cursor-pointer overflow-hidden ${
+        isExpanded ? 'border-primary/50 shadow-gold' : 'border-border hover:border-primary/30'
+      }`}
+      onClick={onToggle}
+    >
+      <div className="p-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className={`p-2 rounded-sm ${isExpanded ? 'bg-primary/20' : 'bg-secondary'}`}>
+              {icon}
+            </div>
+            <div>
+              <h4 className="font-heading text-lg font-semibold text-foreground">{category.name}</h4>
+              <p className="text-sm text-muted-foreground">{category.description}</p>
+            </div>
+          </div>
+          <motion.div
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChevronDown className={`w-5 h-5 ${isExpanded ? 'text-primary' : 'text-muted-foreground'}`} />
+          </motion.div>
+        </div>
+      </div>
+      
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="px-5 pb-5 border-t border-border/50">
+              <div className="pt-4">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm text-muted-foreground">Starting from</span>
+                  <span className="font-heading text-xl font-semibold text-primary">{category.price}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {category.styles.map((style) => (
+                    <div
+                      key={style}
+                      className="flex items-center gap-2 text-sm text-foreground/80"
+                    >
+                      <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span>{style}</span>
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
+                  size="sm"
+                >
+                  Book This Style
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export function ServicesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [expandedMakeup, setExpandedMakeup] = useState<number | null>(null);
+  const [expandedHair, setExpandedHair] = useState<number | null>(null);
 
   const scrollToContact = () => {
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -199,48 +314,52 @@ export function ServicesSection() {
           ))}
         </div>
 
-        {/* Makeup Types */}
+        {/* Makeup Categories */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-12"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-6 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
             <Palette className="w-6 h-6 text-primary" />
             Makeup Styles We Offer
           </h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {makeupTypes.map((type) => (
-              <span
-                key={type}
-                className="px-4 py-2 bg-card/50 border border-border text-foreground/80 text-sm hover:border-primary/50 transition-colors"
-              >
-                {type}
-              </span>
+          <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {makeupCategories.map((category, index) => (
+              <CategoryCard
+                key={category.name}
+                category={category}
+                isExpanded={expandedMakeup === index}
+                onToggle={() => setExpandedMakeup(expandedMakeup === index ? null : index)}
+                icon={<Sparkles className={`w-5 h-5 ${expandedMakeup === index ? 'text-primary' : 'text-muted-foreground'}`} />}
+              />
             ))}
           </div>
         </motion.div>
 
-        {/* Hairstyles */}
+        {/* Hairstyle Categories */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mb-12"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-6 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
             <Scissors className="w-6 h-6 text-primary" />
             Hairstyle Options
           </h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {hairstyles.map((style) => (
-              <span
-                key={style}
-                className="px-4 py-2 bg-card/50 border border-border text-foreground/80 text-sm hover:border-primary/50 transition-colors"
-              >
-                {style}
-              </span>
+          <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {hairstyleCategories.map((category, index) => (
+              <CategoryCard
+                key={category.name}
+                category={category}
+                isExpanded={expandedHair === index}
+                onToggle={() => setExpandedHair(expandedHair === index ? null : index)}
+                icon={<Scissors className={`w-5 h-5 ${expandedHair === index ? 'text-primary' : 'text-muted-foreground'}`} />}
+              />
             ))}
           </div>
         </motion.div>
@@ -260,7 +379,7 @@ export function ServicesSection() {
             {salonServices.map((addon) => (
               <div
                 key={addon.name}
-                className="flex items-center justify-between p-4 bg-card/50 border border-border"
+                className="flex items-center justify-between p-4 bg-card/50 border border-border hover:border-primary/30 transition-colors"
               >
                 <span className="text-foreground">{addon.name}</span>
                 <span className="text-primary font-semibold">{addon.price}</span>
