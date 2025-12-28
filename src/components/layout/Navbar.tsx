@@ -41,8 +41,8 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-background/95 backdrop-blur-md shadow-elegant border-b border-primary/10'
-            : 'bg-transparent'
+            ? 'bg-background/20 backdrop-blur-xl shadow-lg border-b border-white/10 dark:border-white/5'
+            : 'bg-background/10 backdrop-blur-md'
         }`}
       >
         <div className="container mx-auto px-4 lg:px-8">
