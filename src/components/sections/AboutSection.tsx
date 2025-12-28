@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { Award, Heart, Palette, Users } from 'lucide-react';
 
@@ -27,22 +26,42 @@ const features = [
 ];
 
 export function AboutSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const sectionRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Image animations - slides in from left, exits to bottom-left
+  const imageX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], ["-100%", "0%", "0%", "-100%"]);
+  const imageY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], ["-50%", "0%", "0%", "50%"]);
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  // Content animations - slides in from right, exits to bottom-right
+  const contentX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], ["100%", "0%", "0%", "100%"]);
+  const contentY = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], ["-50%", "0%", "0%", "50%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section id="about" className="py-24 lg:py-32 bg-gradient-elegant relative overflow-hidden">
+    <section 
+      id="about" 
+      ref={sectionRef}
+      className="py-24 lg:py-32 bg-gradient-elegant relative overflow-hidden"
+    >
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
-      <div className="container mx-auto px-4" ref={ref}>
+      <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image Column */}
+          {/* Image Column - Slides from left */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            style={{ 
+              x: imageX, 
+              y: imageY, 
+              opacity: imageOpacity 
+            }}
             className="relative"
           >
             <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0">
@@ -60,14 +79,16 @@ export function AboutSection() {
               <motion.div
                 className="absolute -bottom-4 -right-4 w-32 h-32 border-2 border-primary/50"
                 initial={{ scale: 0 }}
-                animate={isInView ? { scale: 1 } : {}}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               />
               {/* Experience badge */}
               <motion.div
                 className="absolute -top-6 -right-6 lg:-right-12 bg-primary text-primary-foreground p-6 shadow-gold"
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
                 <div className="text-center">
@@ -78,11 +99,13 @@ export function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Content Column */}
+          {/* Content Column - Slides from right */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            style={{ 
+              x: contentX, 
+              y: contentY, 
+              opacity: contentOpacity 
+            }}
           >
             <span className="text-primary text-sm uppercase tracking-[0.2em] font-medium">
               About Us
@@ -108,8 +131,9 @@ export function AboutSection() {
                 <motion.div
                   key={feature.title}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                   className="flex gap-4"
                 >
                   <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center">
