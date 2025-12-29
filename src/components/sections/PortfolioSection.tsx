@@ -63,10 +63,10 @@ const allImages = [
   portfolio46, portfolio47
 ];
 
-// Split images into 3 rows
-const row1Images = allImages.slice(0, 16);
-const row2Images = allImages.slice(16, 32);
-const row3Images = allImages.slice(32, 47);
+// Split images into 3 rows - new images distributed across all rows
+const row1Images = [portfolio40, portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio41, portfolio6, portfolio7, portfolio8, portfolio9, portfolio10, portfolio42, portfolio11, portfolio12, portfolio13];
+const row2Images = [portfolio43, portfolio14, portfolio15, portfolio16, portfolio17, portfolio18, portfolio44, portfolio19, portfolio20, portfolio21, portfolio22, portfolio23, portfolio45, portfolio24, portfolio25, portfolio26];
+const row3Images = [portfolio46, portfolio27, portfolio28, portfolio29, portfolio30, portfolio31, portfolio47, portfolio32, portfolio33, portfolio34, portfolio35, portfolio36, portfolio37, portfolio38, portfolio39];
 
 interface MarqueeRowProps {
   images: string[];
