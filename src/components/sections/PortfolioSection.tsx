@@ -41,6 +41,14 @@ import portfolio36 from '@/assets/portfolio-36.jpg';
 import portfolio37 from '@/assets/portfolio-37.jpg';
 import portfolio38 from '@/assets/portfolio-38.jpg';
 import portfolio39 from '@/assets/portfolio-39.jpg';
+import portfolio40 from '@/assets/portfolio-40.jpg';
+import portfolio41 from '@/assets/portfolio-41.jpg';
+import portfolio42 from '@/assets/portfolio-42.jpg';
+import portfolio43 from '@/assets/portfolio-43.jpg';
+import portfolio44 from '@/assets/portfolio-44.jpg';
+import portfolio45 from '@/assets/portfolio-45.jpg';
+import portfolio46 from '@/assets/portfolio-46.jpg';
+import portfolio47 from '@/assets/portfolio-47.jpg';
 
 const allImages = [
   portfolio1, portfolio2, portfolio3, portfolio4, portfolio5,
@@ -50,13 +58,15 @@ const allImages = [
   portfolio21, portfolio22, portfolio23, portfolio24, portfolio25,
   portfolio26, portfolio27, portfolio28, portfolio29, portfolio30,
   portfolio31, portfolio32, portfolio33, portfolio34, portfolio35,
-  portfolio36, portfolio37, portfolio38, portfolio39
+  portfolio36, portfolio37, portfolio38, portfolio39, portfolio40,
+  portfolio41, portfolio42, portfolio43, portfolio44, portfolio45,
+  portfolio46, portfolio47
 ];
 
 // Split images into 3 rows
-const row1Images = allImages.slice(0, 13);
-const row2Images = allImages.slice(13, 26);
-const row3Images = allImages.slice(26, 39);
+const row1Images = allImages.slice(0, 16);
+const row2Images = allImages.slice(16, 32);
+const row3Images = allImages.slice(32, 47);
 
 interface MarqueeRowProps {
   images: string[];
