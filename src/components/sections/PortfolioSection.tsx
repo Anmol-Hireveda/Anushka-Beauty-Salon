@@ -22,6 +22,16 @@ import portfolio16 from '@/assets/portfolio-16.jpg';
 import portfolio17 from '@/assets/portfolio-17.jpg';
 import portfolio18 from '@/assets/portfolio-18.jpg';
 import portfolio19 from '@/assets/portfolio-19.jpg';
+import portfolio20 from '@/assets/portfolio-20.jpg';
+import portfolio21 from '@/assets/portfolio-21.jpg';
+import portfolio22 from '@/assets/portfolio-22.jpg';
+import portfolio23 from '@/assets/portfolio-23.jpg';
+import portfolio24 from '@/assets/portfolio-24.jpg';
+import portfolio25 from '@/assets/portfolio-25.jpg';
+import portfolio26 from '@/assets/portfolio-26.jpg';
+import portfolio27 from '@/assets/portfolio-27.jpg';
+import portfolio28 from '@/assets/portfolio-28.jpg';
+import portfolio29 from '@/assets/portfolio-29.jpg';
 
 const categories = ['All', 'Bridal', 'Hair Styling', 'Party'];
 
@@ -139,6 +149,66 @@ const portfolioItems = [
     title: 'White Elegant Bride',
     category: 'Bridal',
     image: portfolio19,
+  },
+  {
+    id: 20,
+    title: 'Pink Traditional Bride',
+    category: 'Bridal',
+    image: portfolio20,
+  },
+  {
+    id: 21,
+    title: 'Red Bridal Look',
+    category: 'Bridal',
+    image: portfolio21,
+  },
+  {
+    id: 22,
+    title: 'Classic Red Bride',
+    category: 'Bridal',
+    image: portfolio22,
+  },
+  {
+    id: 23,
+    title: 'Jasmine Hair Styling',
+    category: 'Hair Styling',
+    image: portfolio23,
+  },
+  {
+    id: 24,
+    title: 'Golden Chain Curls',
+    category: 'Hair Styling',
+    image: portfolio24,
+  },
+  {
+    id: 25,
+    title: 'Rose Waves',
+    category: 'Hair Styling',
+    image: portfolio25,
+  },
+  {
+    id: 26,
+    title: 'Royal Pink Bride',
+    category: 'Bridal',
+    image: portfolio26,
+  },
+  {
+    id: 27,
+    title: 'Silver Elegance',
+    category: 'Party',
+    image: portfolio27,
+  },
+  {
+    id: 28,
+    title: 'Yellow Mehendi Look',
+    category: 'Party',
+    image: portfolio28,
+  },
+  {
+    id: 29,
+    title: 'Purple Floral Bun',
+    category: 'Hair Styling',
+    image: portfolio29,
   },
 ];
 
