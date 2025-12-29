@@ -37,6 +37,11 @@ import portfolio31 from '@/assets/portfolio-31.jpg';
 import portfolio32 from '@/assets/portfolio-32.jpg';
 import portfolio33 from '@/assets/portfolio-33.jpg';
 import portfolio34 from '@/assets/portfolio-34.jpg';
+import portfolio35 from '@/assets/portfolio-35.jpg';
+import portfolio36 from '@/assets/portfolio-36.jpg';
+import portfolio37 from '@/assets/portfolio-37.jpg';
+import portfolio38 from '@/assets/portfolio-38.jpg';
+import portfolio39 from '@/assets/portfolio-39.jpg';
 
 const categories = ['All', 'Bridal', 'Hair Styling', 'Party'];
 
@@ -244,6 +249,36 @@ const portfolioItems = [
     title: 'Lavender Bun Style',
     category: 'Hair Styling',
     image: portfolio34,
+  },
+  {
+    id: 35,
+    title: 'Braided Straight Style',
+    category: 'Hair Styling',
+    image: portfolio35,
+  },
+  {
+    id: 36,
+    title: 'Red Rose Bun',
+    category: 'Hair Styling',
+    image: portfolio36,
+  },
+  {
+    id: 37,
+    title: 'Golden Pearl Curls',
+    category: 'Hair Styling',
+    image: portfolio37,
+  },
+  {
+    id: 38,
+    title: 'Pearl Braid Styling',
+    category: 'Hair Styling',
+    image: portfolio38,
+  },
+  {
+    id: 39,
+    title: 'Rose Bouquet Bun',
+    category: 'Hair Styling',
+    image: portfolio39,
   },
 ];
 
