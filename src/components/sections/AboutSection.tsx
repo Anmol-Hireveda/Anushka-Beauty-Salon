@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { Award, Heart, Palette, Users } from 'lucide-react';
+import aboutSunitaImg from '@/assets/about-sunita.jpg';
 
 const features = [
   {
@@ -68,8 +69,8 @@ export function AboutSection() {
               {/* Main image */}
               <div className="absolute inset-4 lg:inset-8 overflow-hidden rounded-sm">
                 <img
-                  src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1988&auto=format&fit=crop"
-                  alt="Professional makeup artist at work"
+                  src={aboutSunitaImg}
+                  alt="Sunita Prajapati - Professional makeup artist at work"
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -3,56 +3,72 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['All', 'Bridal', 'Engagement', 'Reception', 'Party'];
+import portfolio1 from '@/assets/portfolio-1.jpg';
+import portfolio2 from '@/assets/portfolio-2.jpg';
+import portfolio3 from '@/assets/portfolio-3.jpg';
+import portfolio4 from '@/assets/portfolio-4.jpg';
+import portfolio5 from '@/assets/portfolio-5.jpg';
+import portfolio6 from '@/assets/portfolio-6.jpg';
+import portfolio7 from '@/assets/portfolio-7.jpg';
+import portfolio8 from '@/assets/portfolio-8.jpg';
+import portfolio9 from '@/assets/portfolio-9.jpg';
+
+const categories = ['All', 'Bridal', 'Hair Styling', 'Party'];
 
 const portfolioItems = [
   {
     id: 1,
-    title: 'Traditional Bridal',
+    title: 'Bridal Glam',
     category: 'Bridal',
-    image: 'https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?q=80&w=1974&auto=format&fit=crop',
+    image: portfolio1,
   },
   {
     id: 2,
-    title: 'Engagement Glow',
-    category: 'Engagement',
-    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1987&auto=format&fit=crop',
+    title: 'Traditional Bridal Braid',
+    category: 'Hair Styling',
+    image: portfolio2,
   },
   {
     id: 3,
-    title: 'Reception Glamour',
-    category: 'Reception',
-    image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?q=80&w=1780&auto=format&fit=crop',
+    title: 'Pearl Hair Styling',
+    category: 'Hair Styling',
+    image: portfolio3,
   },
   {
     id: 4,
-    title: 'Party Ready',
-    category: 'Party',
-    image: 'https://images.unsplash.com/photo-1526666923127-b2970f64b422?q=80&w=2072&auto=format&fit=crop',
+    title: 'Pink Bridal Look',
+    category: 'Bridal',
+    image: portfolio4,
   },
   {
     id: 5,
-    title: 'South Indian Bride',
-    category: 'Bridal',
-    image: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=1974&auto=format&fit=crop',
+    title: 'Haldi Ceremony',
+    category: 'Party',
+    image: portfolio5,
   },
   {
     id: 6,
-    title: 'Minimalist Bride',
-    category: 'Bridal',
-    image: 'https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1935&auto=format&fit=crop',
+    title: 'Elegant Reception',
+    category: 'Party',
+    image: portfolio6,
   },
   {
     id: 7,
-    title: 'Cocktail Night',
-    category: 'Party',
-    image: 'https://images.unsplash.com/photo-1583255448430-17c5eda08e5c?q=80&w=2070&auto=format&fit=crop',
+    title: 'Pearl Curls',
+    category: 'Hair Styling',
+    image: portfolio7,
   },
   {
     id: 8,
-    title: 'Sangeet Look',
-    category: 'Engagement',
-    image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1987&auto=format&fit=crop',
+    title: 'Flower Hair Styling',
+    category: 'Hair Styling',
+    image: portfolio8,
+  },
+  {
+    id: 9,
+    title: 'Rose Bun',
+    category: 'Bridal',
+    image: portfolio9,
   },
 ];
 
