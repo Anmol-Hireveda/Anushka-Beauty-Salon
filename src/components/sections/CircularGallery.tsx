@@ -1,15 +1,18 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
+import portfolio40 from '@/assets/portfolio-40.jpg';
+import portfolio41 from '@/assets/portfolio-41.jpg';
+import portfolio42 from '@/assets/portfolio-42.jpg';
+import portfolio43 from '@/assets/portfolio-43.jpg';
+import portfolio44 from '@/assets/portfolio-44.jpg';
+import portfolio45 from '@/assets/portfolio-45.jpg';
+import portfolio46 from '@/assets/portfolio-46.jpg';
+import portfolio47 from '@/assets/portfolio-47.jpg';
+
 const images = [
-  'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1503236823255-94609f598e71?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1560577345-013f785ae56c?w=400&h=500&fit=crop',
-  'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=500&fit=crop',
+  portfolio40, portfolio41, portfolio42, portfolio43,
+  portfolio44, portfolio45, portfolio46, portfolio47
 ];
 
 // Starting positions from outside
