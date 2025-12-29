@@ -12,6 +12,16 @@ import portfolio6 from '@/assets/portfolio-6.jpg';
 import portfolio7 from '@/assets/portfolio-7.jpg';
 import portfolio8 from '@/assets/portfolio-8.jpg';
 import portfolio9 from '@/assets/portfolio-9.jpg';
+import portfolio10 from '@/assets/portfolio-10.jpg';
+import portfolio11 from '@/assets/portfolio-11.jpg';
+import portfolio12 from '@/assets/portfolio-12.jpg';
+import portfolio13 from '@/assets/portfolio-13.jpg';
+import portfolio14 from '@/assets/portfolio-14.jpg';
+import portfolio15 from '@/assets/portfolio-15.jpg';
+import portfolio16 from '@/assets/portfolio-16.jpg';
+import portfolio17 from '@/assets/portfolio-17.jpg';
+import portfolio18 from '@/assets/portfolio-18.jpg';
+import portfolio19 from '@/assets/portfolio-19.jpg';
 
 const categories = ['All', 'Bridal', 'Hair Styling', 'Party'];
 
@@ -69,6 +79,66 @@ const portfolioItems = [
     title: 'Rose Bun',
     category: 'Bridal',
     image: portfolio9,
+  },
+  {
+    id: 10,
+    title: 'Peach Reception Look',
+    category: 'Party',
+    image: portfolio10,
+  },
+  {
+    id: 11,
+    title: 'Traditional Maroon Bridal',
+    category: 'Bridal',
+    image: portfolio11,
+  },
+  {
+    id: 12,
+    title: 'Floral Reception',
+    category: 'Party',
+    image: portfolio12,
+  },
+  {
+    id: 13,
+    title: 'Mother-Daughter Look',
+    category: 'Party',
+    image: portfolio13,
+  },
+  {
+    id: 14,
+    title: 'Pearl Waves',
+    category: 'Hair Styling',
+    image: portfolio14,
+  },
+  {
+    id: 15,
+    title: 'Lavender Glam',
+    category: 'Party',
+    image: portfolio15,
+  },
+  {
+    id: 16,
+    title: 'Yellow Haldi Bride',
+    category: 'Bridal',
+    image: portfolio16,
+  },
+  {
+    id: 17,
+    title: 'Designer Braid',
+    category: 'Hair Styling',
+    image: portfolio17,
+  },
+  {
+    id: 18,
+    title: 'Before & After Transformation',
+    category: 'Bridal',
+    image: portfolio18,
+  },
+  {
+    id: 19,
+    title: 'White Elegant Bride',
+    category: 'Bridal',
+    image: portfolio19,
   },
 ];
 
