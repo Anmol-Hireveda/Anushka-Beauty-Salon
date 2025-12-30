@@ -41,12 +41,6 @@ const socialLinks = [
     color: 'hover:text-pink-500',
   },
   {
-    icon: Instagram,
-    label: 'Instagram @_anushka__prajapati_',
-    href: 'https://instagram.com/_anushka__prajapati_',
-    color: 'hover:text-pink-500',
-  },
-  {
     icon: MessageCircle,
     label: 'WhatsApp',
     href: 'https://wa.me/919694834669',
