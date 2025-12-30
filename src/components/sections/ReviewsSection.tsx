@@ -70,7 +70,7 @@ export function ReviewsSection() {
     client_name: '',
     email: '',
     review_text: '',
-    rating: 5,
+    rating: 0,
   });
 
   // Fetch reviews from database
@@ -135,7 +135,7 @@ export function ReviewsSection() {
         title: "Thank You!",
         description: "Your review has been submitted successfully.",
       });
-      setFormData({ client_name: '', email: '', review_text: '', rating: 5 });
+      setFormData({ client_name: '', email: '', review_text: '', rating: 0 });
       setIsOpen(false);
     }
 
