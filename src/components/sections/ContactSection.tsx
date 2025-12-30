@@ -156,8 +156,8 @@ export function ContactSection() {
                 Our Team
               </h3>
               <div className="space-y-2 text-muted-foreground text-sm">
-                <p><span className="text-primary">MUA:</span> Sunita Prajapati</p>
-                <p><span className="text-primary">Hairstyle:</span> Anushka Prajapati & Rajshree Prajapati</p>
+                <p><span className="text-primary">MUA:</span> Sunita & Rajshree Prajapati</p>
+                <p><span className="text-primary">Hairstyle:</span> Anushka Prajapati & Harshita Prajapati</p>
               </div>
             </div>
 
