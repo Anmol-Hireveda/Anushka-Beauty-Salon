@@ -59,43 +59,24 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Owner email sent successfully:", ownerEmailResponse);
 
-    // Send confirmation email to customer
-    const customerEmailResponse = await resend.emails.send({
-      from: "Anushka Beauty Salon <onboarding@resend.dev>",
-      to: [email],
-      subject: "Thank you for your booking request - Anushka Beauty Salon",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #1a1a1a; color: #fff;">
-          <h1 style="color: #d4af37; text-align: center;">Anushka Beauty Salon</h1>
-          
-          <div style="background: #2a2a2a; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
-            <h2 style="color: #d4af37;">Thank You, ${name}!</h2>
-            <p>We have received your booking request and will get back to you shortly.</p>
-          </div>
-          
-          <div style="background: #2a2a2a; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #d4af37;">Your Request Details</h3>
-            <p><strong>Service:</strong> ${service_interest || 'Not specified'}</p>
-            <p><strong>Message:</strong> ${message}</p>
-          </div>
-          
-          <div style="text-align: center; margin-top: 30px;">
-            <p>For faster response, contact us on WhatsApp:</p>
-            <a href="https://wa.me/919694834669" style="display: inline-block; background: #25D366; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Chat on WhatsApp</a>
-          </div>
-          
-          <p style="color: #888; font-size: 12px; margin-top: 30px; text-align: center;">
-            Anushka Beauty Salon<br>
-            Expert in Bridal & Party Makeup, Hair Styling & Coloring
-          </p>
-        </div>
-      `,
-    });
+    // Generate WhatsApp confirmation link for customer
+    const whatsappMessage = encodeURIComponent(
+      `🙏 Thank you ${name} for your booking request at Anushka Beauty Salon!\n\n` +
+      `📋 Your Request:\n` +
+      `• Service: ${service_interest || 'Not specified'}\n` +
+      `• Message: ${message}\n\n` +
+      `We will contact you shortly. For faster response, reply here!`
+    );
+    const whatsappLink = `https://wa.me/919694834669?text=${whatsappMessage}`;
 
-    console.log("Customer confirmation email sent:", customerEmailResponse);
+    console.log("WhatsApp confirmation link generated for customer");
 
     return new Response(
-      JSON.stringify({ success: true, message: "Emails sent successfully" }),
+      JSON.stringify({ 
+        success: true, 
+        message: "Booking request sent successfully",
+        whatsappLink: whatsappLink
+      }),
       {
         status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },
