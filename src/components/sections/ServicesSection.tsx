@@ -126,10 +126,14 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md border-primary/20">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-md backdrop-blur-2xl bg-white/20 dark:bg-black/40 border border-white/30 dark:border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2),inset_0_1px_1px_rgba(255,255,255,0.3)]">
+        {/* Glass highlight effect */}
+        <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/20 to-transparent rounded-t-lg pointer-events-none" />
+        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-white/10 pointer-events-none" />
+        
+        <DialogHeader className="relative">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 rounded-sm bg-primary/20">
+            <div className="p-2 rounded-xl backdrop-blur-sm bg-white/20 dark:bg-white/10 border border-white/30">
               {type === 'makeup' ? (
                 <Sparkles className="w-5 h-5 text-primary" />
               ) : (
@@ -141,13 +145,13 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
           <DialogDescription>{category.description}</DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div className="space-y-4 relative">
 
           <div className="grid grid-cols-2 gap-3">
             {category.styles.map((style) => (
               <div
                 key={style}
-                className="flex items-center gap-2 text-sm text-foreground/80 p-2 bg-secondary/50 rounded-sm"
+                className="flex items-center gap-2 text-sm text-foreground/90 p-3 backdrop-blur-xl bg-white/15 dark:bg-white/10 border border-white/20 rounded-xl"
               >
                 <Check className="w-4 h-4 text-primary flex-shrink-0" />
                 <span>{style}</span>
@@ -191,11 +195,10 @@ export function ServicesSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-12"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-1 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
             <Palette className="w-6 h-6 text-primary" />
             Makeup Styles We Offer
           </h3>
-          <p className="text-primary font-medium text-center mb-1">By Sunita & Rajshree Prajapati</p>
           <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {makeupCategories.map((category) => (
@@ -216,11 +219,10 @@ export function ServicesSection() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mb-12"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-1 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
             <Scissors className="w-6 h-6 text-primary" />
             Hairstyle Options
           </h3>
-          <p className="text-primary font-medium text-center mb-1">By Anushka Prajapati & Harshita Prajapati</p>
           <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {hairstyleCategories.map((category) => (
