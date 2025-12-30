@@ -1,54 +1,150 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, Send, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface Review {
   id: string;
   client_name: string;
-  client_photo: string | null;
+  email: string;
   rating: number;
   review_text: string;
   service_type: string | null;
+  created_at: string;
 }
 
-const reviews: Review[] = [
+// Fallback static reviews
+const staticReviews: Review[] = [
   {
-    id: '1',
+    id: 'static-1',
     client_name: 'Priya Sharma',
-    client_photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
+    email: 'priya@example.com',
     rating: 5,
     review_text: 'Anushka did my bridal makeup and I looked absolutely stunning! She understood exactly what I wanted and the makeup lasted all day and night.',
     service_type: 'Bridal',
+    created_at: new Date().toISOString(),
   },
   {
-    id: '2',
+    id: 'static-2',
     client_name: 'Neha Gupta',
-    client_photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
+    email: 'neha@example.com',
     rating: 5,
     review_text: 'Amazing work for my engagement ceremony! The look was perfect - elegant yet glamorous. Everyone kept complimenting my makeup.',
     service_type: 'Engagement',
+    created_at: new Date().toISOString(),
   },
   {
-    id: '3',
+    id: 'static-3',
     client_name: 'Anjali Verma',
-    client_photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+    email: 'anjali@example.com',
     rating: 5,
     review_text: "Got my makeup done for a friend's wedding and received so many compliments! Anushka is truly talented.",
     service_type: 'Party',
+    created_at: new Date().toISOString(),
   },
   {
-    id: '4',
+    id: 'static-4',
     client_name: 'Ritu Singh',
-    client_photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
+    email: 'ritu@example.com',
     rating: 5,
     review_text: 'Best makeup artist! She made me feel like a queen on my reception. The HD makeup was flawless in photos.',
     service_type: 'Reception',
+    created_at: new Date().toISOString(),
   },
 ];
 
 export function ReviewsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { toast } = useToast();
+
+  const [reviews, setReviews] = useState<Review[]>(staticReviews);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    client_name: '',
+    email: '',
+    review_text: '',
+    rating: 5,
+  });
+
+  // Fetch reviews from database
+  const fetchReviews = async () => {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data && data.length > 0) {
+      setReviews(data);
+    }
+  };
+
+  // Initial fetch
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  // Real-time subscription
+  useEffect(() => {
+    const channel = supabase
+      .channel('reviews-realtime')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'reviews',
+        },
+        () => {
+          fetchReviews();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const { error } = await supabase.from('reviews').insert({
+      client_name: formData.client_name.trim(),
+      email: formData.email.trim(),
+      review_text: formData.review_text.trim(),
+      rating: formData.rating,
+      service_type: 'Beauty Service',
+    });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Could not submit review. Please try again.",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Thank You!",
+        description: "Your review has been submitted successfully.",
+      });
+      setFormData({ client_name: '', email: '', review_text: '', rating: 5 });
+      setIsOpen(false);
+    }
+
+    setIsSubmitting(false);
+  };
+
+  const handleRatingClick = (rating: number) => {
+    setFormData(prev => ({ ...prev, rating }));
+  };
 
   return (
     <section id="reviews" className="py-24 lg:py-32 bg-background relative overflow-hidden">
@@ -74,10 +170,85 @@ export function ReviewsSection() {
           <h2 className="font-heading text-4xl md:text-5xl font-semibold text-foreground mt-4 mb-6">
             Client <span className="text-gradient-gold">Love</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
             Don't just take my word for it—hear from the beautiful clients who have trusted
             me with their special moments.
           </p>
+
+          {/* Write Review Button */}
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Star className="w-4 h-4 mr-2" />
+                Write a Review
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle className="font-heading text-2xl">Share Your Experience</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Your Name</label>
+                  <Input
+                    placeholder="Enter your name"
+                    value={formData.client_name}
+                    onChange={(e) => setFormData(prev => ({ ...prev, client_name: e.target.value }))}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Email</label>
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Rating</label>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => handleRatingClick(star)}
+                        className="p-1 transition-transform hover:scale-110"
+                      >
+                        <Star
+                          className={`w-8 h-8 ${
+                            star <= formData.rating
+                              ? 'text-primary fill-primary'
+                              : 'text-muted-foreground'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Your Review</label>
+                  <Textarea
+                    placeholder="Share your experience with us..."
+                    value={formData.review_text}
+                    onChange={(e) => setFormData(prev => ({ ...prev, review_text: e.target.value }))}
+                    rows={4}
+                    required
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                  <Send className="w-4 h-4 ml-2" />
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
         </motion.div>
 
         {/* Reviews Grid */}
@@ -113,19 +284,11 @@ export function ReviewsSection() {
 
                 {/* Client info */}
                 <div className="flex items-center gap-3 mt-auto">
-                  {review.client_photo ? (
-                    <img
-                      src={review.client_photo}
-                      alt={review.client_name}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-primary/30"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span className="text-primary font-heading text-lg font-semibold">
-                        {review.client_name.charAt(0)}
-                      </span>
-                    </div>
-                  )}
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                    <span className="text-primary font-heading text-lg font-semibold">
+                      {review.client_name.charAt(0)}
+                    </span>
+                  </div>
                   <div>
                     <h4 className="font-heading font-semibold text-foreground">
                       {review.client_name}
