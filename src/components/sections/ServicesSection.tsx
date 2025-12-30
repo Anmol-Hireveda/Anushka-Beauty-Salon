@@ -126,7 +126,7 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md backdrop-blur-xl bg-background/70 dark:bg-background/60 border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+      <DialogContent className="sm:max-w-md backdrop-blur-xl bg-gradient-elegant border border-border/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
         
         <DialogHeader className="relative">
           <div className="flex items-center gap-3 mb-2">
