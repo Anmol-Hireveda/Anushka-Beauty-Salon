@@ -66,15 +66,22 @@ const hairstyleCategories = [
 ];
 
 const salonServices = [
-  { name: 'Facial & Clean-Up', price: '₹500+' },
-  { name: 'Bleach & Waxing', price: '₹200+' },
-  { name: 'Threading', price: '₹50+' },
-  { name: 'Manicure & Pedicure', price: '₹400+' },
-  { name: 'Body Polishing', price: '₹1,500+' },
-  { name: 'Nail Art & Extensions', price: '₹500+' },
-  { name: 'Hair Protein Treatment', price: '₹2,000+' },
-  { name: 'Global Color', price: '₹3,000+' },
+  { name: 'Facial & Clean-Up', price: '₹500+', description: 'Deep cleansing and rejuvenation', options: ['Basic Facial', 'Gold Facial', 'Diamond Facial', 'Fruit Facial', 'Clean-Up'] },
+  { name: 'Bleach & Waxing', price: '₹200+', description: 'Smooth and radiant skin', options: ['Face Bleach', 'Full Body Wax', 'Arms Wax', 'Legs Wax', 'Underarms'] },
+  { name: 'Threading', price: '₹50+', description: 'Precise hair removal', options: ['Eyebrows', 'Upper Lip', 'Forehead', 'Full Face', 'Chin'] },
+  { name: 'Manicure & Pedicure', price: '₹400+', description: 'Complete hand and foot care', options: ['Basic Manicure', 'Spa Manicure', 'Basic Pedicure', 'Spa Pedicure', 'Gel Polish'] },
+  { name: 'Body Polishing', price: '₹1,500+', description: 'Full body exfoliation and glow', options: ['Fruit Polish', 'Coffee Polish', 'Gold Polish', 'Chocolate Polish'] },
+  { name: 'Nail Art & Extensions', price: '₹500+', description: 'Creative nail designs', options: ['Simple Nail Art', 'Designer Nail Art', 'Gel Extensions', 'Acrylic Extensions', '3D Nail Art'] },
+  { name: 'Hair Protein Treatment', price: '₹2,000+', description: 'Hair repair and nourishment', options: ['Keratin Treatment', 'Protein Pack', 'Hair Spa', 'Deep Conditioning', 'Botox Treatment'] },
+  { name: 'Global Color', price: '₹3,000+', description: 'Professional hair coloring', options: ['Full Color', 'Root Touch-Up', 'Highlights', 'Balayage', 'Ombre'] },
 ];
+
+interface SalonService {
+  name: string;
+  price: string;
+  description: string;
+  options: string[];
+}
 
 interface Category {
   name: string;
@@ -176,6 +183,7 @@ export function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [selectedMakeup, setSelectedMakeup] = useState<Category | null>(null);
   const [selectedHair, setSelectedHair] = useState<Category | null>(null);
+  const [selectedSalon, setSelectedSalon] = useState<SalonService | null>(null);
 
 
   return (
@@ -250,6 +258,7 @@ export function ServicesSection() {
                 key={addon.name}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => setSelectedSalon(addon)}
                 className="relative flex items-center justify-center p-5 backdrop-blur-md bg-white/5 dark:bg-white/[0.03] border border-white/10 dark:border-white/5 rounded-2xl transition-all duration-300 cursor-pointer text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.12)] hover:border-primary/30 hover:bg-white/10 dark:hover:bg-white/[0.06] overflow-hidden group"
               >
                 {/* Glass reflection effect */}
@@ -275,6 +284,47 @@ export function ServicesSection() {
         onClose={() => setSelectedHair(null)}
         type="hair"
       />
+
+      {/* Salon Service Modal */}
+      <Dialog open={!!selectedSalon} onOpenChange={() => setSelectedSalon(null)}>
+        <DialogContent className="sm:max-w-md backdrop-blur-xl bg-gradient-elegant border border-border/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+          <DialogHeader className="relative">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 rounded-xl backdrop-blur-sm bg-primary/10 border border-primary/20">
+                <Heart className="w-5 h-5 text-primary" />
+              </div>
+              <DialogTitle className="font-heading text-xl">{selectedSalon?.name}</DialogTitle>
+            </div>
+            <DialogDescription>{selectedSalon?.description}</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 relative">
+            <div className="text-primary font-semibold text-lg">{selectedSalon?.price}</div>
+            
+            <div className="grid grid-cols-2 gap-3">
+              {selectedSalon?.options.map((option) => (
+                <div
+                  key={option}
+                  className="flex items-center gap-2 text-sm text-foreground/90 p-3 backdrop-blur-md bg-card/50 border border-border/30 rounded-xl"
+                >
+                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                  <span>{option}</span>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              onClick={() => {
+                setSelectedSalon(null);
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              Book This Service
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
