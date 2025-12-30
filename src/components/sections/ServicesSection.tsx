@@ -235,24 +235,6 @@ export function ServicesSection() {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="container mx-auto px-4" ref={ref}>
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary text-sm uppercase tracking-[0.2em] font-medium">
-            Our Services
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-semibold text-foreground mt-4 mb-6">
-            Complete Beauty <span className="text-gradient-gold">Solutions</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            From makeup to hair styling, skin treatments to nail art - we offer complete beauty 
-            services to make your special occasions unforgettable.
-          </p>
-        </motion.div>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-16">
