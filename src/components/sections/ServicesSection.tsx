@@ -144,15 +144,15 @@ function CategoryCard({ category, onClick, icon }: CategoryCardProps) {
     <motion.div
       whileHover={{ scale: 1.03, y: -2 }}
       whileTap={{ scale: 0.98 }}
-      className="relative backdrop-blur-xl bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl transition-all duration-300 cursor-pointer p-5 shadow-[0_8px_32px_0_rgba(0,0,0,0.12)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.15)] hover:border-primary/40 overflow-hidden group"
+      className="relative backdrop-blur-md bg-white/5 dark:bg-white/[0.03] border border-white/10 dark:border-white/5 rounded-2xl transition-all duration-300 cursor-pointer p-5 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.12)] hover:border-primary/30 hover:bg-white/10 dark:hover:bg-white/[0.06] overflow-hidden group"
       onClick={onClick}
     >
       {/* Glass reflection effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-60 pointer-events-none" />
-      <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/30 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-50 pointer-events-none" />
+      <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/20 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
       
       <div className="relative flex items-center gap-3">
-        <div className="p-2.5 rounded-xl bg-white/20 dark:bg-white/10 backdrop-blur-sm border border-white/20">
+        <div className="p-2.5 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/10">
           {icon}
         </div>
         <div>
