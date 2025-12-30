@@ -70,7 +70,7 @@ export function AboutSection() {
               <div className="absolute inset-4 lg:inset-8 overflow-hidden rounded-sm">
                 <img
                   src={aboutSunitaImg}
-                  alt="Sunita Prajapati - Professional makeup artist at work"
+                  alt="Sunita - Professional makeup artist at work"
                   className="w-full h-full object-cover"
                 />
               </div>
