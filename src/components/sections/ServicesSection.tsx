@@ -250,13 +250,12 @@ export function ServicesSection() {
                 key={addon.name}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="relative flex items-center justify-center p-5 backdrop-blur-2xl bg-white/20 dark:bg-white/10 border border-white/40 dark:border-white/20 rounded-3xl transition-all duration-300 cursor-pointer text-center shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:shadow-[0_8px_40px_rgba(212,175,55,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:bg-white/30 dark:hover:bg-white/15 overflow-hidden group"
+                className="relative flex items-center justify-center p-5 backdrop-blur-md bg-white/5 dark:bg-white/[0.03] border border-white/10 dark:border-white/5 rounded-2xl transition-all duration-300 cursor-pointer text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.12)] hover:border-primary/30 hover:bg-white/10 dark:hover:bg-white/[0.06] overflow-hidden group"
               >
-                {/* Top highlight for iOS glass effect */}
-                <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent rounded-t-3xl pointer-events-none" />
-                {/* Subtle inner glow */}
-                <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/20 pointer-events-none" />
-                <span className="relative text-foreground font-medium drop-shadow-sm">{addon.name}</span>
+                {/* Glass reflection effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-50 pointer-events-none" />
+                <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/20 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
+                <span className="relative text-foreground font-medium">{addon.name}</span>
               </motion.div>
             ))}
           </div>
