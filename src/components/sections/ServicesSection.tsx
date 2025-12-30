@@ -245,12 +245,17 @@ export function ServicesSection() {
           </h3>
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
             {salonServices.map((addon) => (
-              <div
+              <motion.div
                 key={addon.name}
-                className="flex items-center justify-center p-4 bg-card/50 border border-border hover:border-primary/30 transition-colors text-center"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative flex items-center justify-center p-4 backdrop-blur-xl bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-xl transition-all duration-300 cursor-pointer text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.15)] hover:border-primary/30 hover:bg-white/15 dark:hover:bg-white/[0.08] overflow-hidden group"
               >
-                <span className="text-foreground">{addon.name}</span>
-              </div>
+                {/* Glass reflection effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent opacity-50 pointer-events-none" />
+                <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/25 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
+                <span className="relative text-foreground font-medium">{addon.name}</span>
+              </motion.div>
             ))}
           </div>
         </motion.div>
