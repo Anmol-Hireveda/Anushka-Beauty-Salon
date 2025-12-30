@@ -191,29 +191,6 @@ export function ContactSection() {
                 ))}
               </div>
             </div>
-
-            {/* Quick booking CTA */}
-            <div className="p-6 bg-primary/10 border border-primary/20">
-              <h3 className="font-heading text-xl font-semibold text-foreground mb-2">
-                Quick Booking
-              </h3>
-              <p className="text-muted-foreground text-sm mb-4">
-                Prefer to chat directly? Message us on WhatsApp for faster response.
-              </p>
-              <Button
-                asChild
-                className="w-full bg-green-600 hover:bg-green-700 text-foreground"
-              >
-                <a
-                  href="https://wa.me/919694834669?text=Hi! I'm interested in booking a beauty session at Anushka Beauty Salon."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  Chat on WhatsApp
-                </a>
-              </Button>
-            </div>
           </motion.div>
 
           {/* Contact Form */}
