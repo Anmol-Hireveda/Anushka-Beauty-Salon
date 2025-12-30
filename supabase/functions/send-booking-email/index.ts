@@ -31,7 +31,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to salon owner
     const ownerEmailResponse = await resend.emails.send({
       from: "Anushka Beauty Salon <onboarding@resend.dev>",
-      to: ["anushkaprajapatiap2809@gmail.com"],
+      to: ["loveboyl32925@gmail.com"],
       subject: `New Booking Request from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #1a1a1a; color: #fff;">
