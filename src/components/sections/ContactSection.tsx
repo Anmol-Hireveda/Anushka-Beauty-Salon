@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const contactInfo = [
   {
@@ -70,23 +71,37 @@ export function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const { data, error } = await supabase.functions.invoke('send-booking-email', {
+        body: formData,
+      });
 
-    toast({
-      title: 'Message sent!',
-      description: "Thank you for reaching out. We'll get back to you soon.",
-    });
+      if (error) {
+        throw error;
+      }
 
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service_interest: '',
-      message: '',
-    });
+      toast({
+        title: 'Message sent!',
+        description: "Thank you for reaching out. We'll get back to you soon. Check your email for confirmation.",
+      });
 
-    setIsSubmitting(false);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service_interest: '',
+        message: '',
+      });
+    } catch (error: any) {
+      console.error('Error sending email:', error);
+      toast({
+        title: 'Error sending message',
+        description: 'Please try again or contact us via WhatsApp.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
