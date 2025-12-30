@@ -74,6 +74,13 @@ export function AboutSection() {
                   className="w-full h-full object-cover"
                 />
               </div>
+              {/* Name label below image */}
+              <div className="absolute bottom-0 left-4 right-4 lg:left-8 lg:right-8 text-center">
+                <div className="bg-primary/90 backdrop-blur-sm py-2 px-4">
+                  <span className="font-heading text-lg font-semibold text-primary-foreground">Sunita</span>
+                  <p className="text-xs text-primary-foreground/80">Professional Makeup Artist</p>
+                </div>
+              </div>
               {/* Decorative frame */}
               <div className="absolute inset-0 border border-primary/30 rounded-sm" />
               {/* Accent square */}
