@@ -191,10 +191,11 @@ export function ServicesSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-12"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-1 flex items-center justify-center gap-2">
             <Palette className="w-6 h-6 text-primary" />
             Makeup Styles We Offer
           </h3>
+          <p className="text-primary font-medium text-center mb-1">By Sunita & Rajshree Prajapati</p>
           <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {makeupCategories.map((category) => (
@@ -215,10 +216,11 @@ export function ServicesSection() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mb-12"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-1 flex items-center justify-center gap-2">
             <Scissors className="w-6 h-6 text-primary" />
             Hairstyle Options
           </h3>
+          <p className="text-primary font-medium text-center mb-1">By Anushka Prajapati & Harshita Prajapati</p>
           <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {hairstyleCategories.map((category) => (
