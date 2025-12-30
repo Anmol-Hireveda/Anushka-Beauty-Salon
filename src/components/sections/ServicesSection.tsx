@@ -142,13 +142,17 @@ interface CategoryCardProps {
 function CategoryCard({ category, onClick, icon }: CategoryCardProps) {
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.03, y: -2 }}
       whileTap={{ scale: 0.98 }}
-      className="bg-card/50 border border-border hover:border-primary/50 transition-all duration-300 cursor-pointer p-5 hover:shadow-gold"
+      className="relative backdrop-blur-xl bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl transition-all duration-300 cursor-pointer p-5 shadow-[0_8px_32px_0_rgba(0,0,0,0.12)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.15)] hover:border-primary/40 overflow-hidden group"
       onClick={onClick}
     >
-      <div className="flex items-center gap-3">
-        <div className="p-2 rounded-sm bg-secondary">
+      {/* Glass reflection effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-60 pointer-events-none" />
+      <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/30 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
+      
+      <div className="relative flex items-center gap-3">
+        <div className="p-2.5 rounded-xl bg-white/20 dark:bg-white/10 backdrop-blur-sm border border-white/20">
           {icon}
         </div>
         <div>
