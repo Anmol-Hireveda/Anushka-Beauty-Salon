@@ -126,14 +126,11 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md backdrop-blur-2xl bg-white/20 dark:bg-black/40 border border-white/30 dark:border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2),inset_0_1px_1px_rgba(255,255,255,0.3)]">
-        {/* Glass highlight effect */}
-        <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/20 to-transparent rounded-t-lg pointer-events-none" />
-        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-white/10 pointer-events-none" />
+      <DialogContent className="sm:max-w-md backdrop-blur-xl bg-background/70 dark:bg-background/60 border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
         
         <DialogHeader className="relative">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 rounded-xl backdrop-blur-sm bg-white/20 dark:bg-white/10 border border-white/30">
+            <div className="p-2 rounded-xl backdrop-blur-sm bg-primary/10 border border-primary/20">
               {type === 'makeup' ? (
                 <Sparkles className="w-5 h-5 text-primary" />
               ) : (
@@ -151,7 +148,7 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
             {category.styles.map((style) => (
               <div
                 key={style}
-                className="flex items-center gap-2 text-sm text-foreground/90 p-3 backdrop-blur-xl bg-white/15 dark:bg-white/10 border border-white/20 rounded-xl"
+                className="flex items-center gap-2 text-sm text-foreground/90 p-3 backdrop-blur-md bg-card/50 border border-border/30 rounded-xl"
               >
                 <Check className="w-4 h-4 text-primary flex-shrink-0" />
                 <span>{style}</span>
