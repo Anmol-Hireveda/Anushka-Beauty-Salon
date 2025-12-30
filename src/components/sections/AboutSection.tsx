@@ -17,7 +17,7 @@ const features = [
   {
     icon: Award,
     title: 'Expert Team',
-    description: 'Led by Sunita Prajapati with skilled hairstylists Anushka & Rajshree Prajapati.',
+    description: 'Led by Sunita with skilled hairstylists Anushka & Rajshree Prajapati.',
   },
   {
     icon: Users,
