@@ -1,12 +1,30 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Star, Quote, Send, X } from 'lucide-react';
+import { Star, Quote, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+
+// Service options for dropdown
+const serviceOptions = [
+  'Bridal Makeup',
+  'Party Makeup',
+  'Engagement Makeup',
+  'Reception Makeup',
+  'HD Makeup',
+  'Airbrush Makeup',
+  'Hairstyling',
+  'Facial',
+  'Waxing',
+  'Manicure & Pedicure',
+  'Hair Color',
+  'Hair Treatment',
+  'Other',
+];
 
 interface Review {
   id: string;
@@ -71,6 +89,8 @@ export function ReviewsSection() {
     email: '',
     review_text: '',
     rating: 0,
+    service_type: '',
+    custom_service: '',
   });
 
   // Fetch reviews from database
@@ -116,12 +136,17 @@ export function ReviewsSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Determine final service type
+    const finalServiceType = formData.service_type === 'Other' 
+      ? formData.custom_service.trim() 
+      : formData.service_type;
+
     const { error } = await supabase.from('reviews').insert({
       client_name: formData.client_name.trim(),
       email: formData.email.trim(),
       review_text: formData.review_text.trim(),
       rating: formData.rating,
-      service_type: 'Beauty Service',
+      service_type: finalServiceType || 'Beauty Service',
     });
 
     if (error) {
@@ -135,7 +160,7 @@ export function ReviewsSection() {
         title: "Thank You!",
         description: "Your review has been submitted successfully.",
       });
-      setFormData({ client_name: '', email: '', review_text: '', rating: 0 });
+      setFormData({ client_name: '', email: '', review_text: '', rating: 0, service_type: '', custom_service: '' });
       setIsOpen(false);
     }
 
@@ -228,6 +253,35 @@ export function ReviewsSection() {
                     ))}
                   </div>
                 </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Service</label>
+                  <Select
+                    value={formData.service_type}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, service_type: value, custom_service: value === 'Other' ? prev.custom_service : '' }))}
+                  >
+                    <SelectTrigger className="w-full bg-background">
+                      <SelectValue placeholder="Select service type" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      {serviceOptions.map((service) => (
+                        <SelectItem key={service} value={service}>
+                          {service}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {formData.service_type === 'Other' && (
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-2 block">Enter Service Name</label>
+                    <Input
+                      placeholder="Type your service..."
+                      value={formData.custom_service}
+                      onChange={(e) => setFormData(prev => ({ ...prev, custom_service: e.target.value }))}
+                      required
+                    />
+                  </div>
+                )}
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Your Review</label>
                   <Textarea
