@@ -81,8 +81,18 @@ export function ContactSection() {
       }
 
       toast({
-        title: 'Message sent!',
-        description: "Thank you for reaching out. We'll get back to you soon. Check your email for confirmation.",
+        title: '✅ Booking Request Sent!',
+        description: "We'll contact you soon. Click below to confirm on WhatsApp!",
+        action: (
+          <a 
+            href={data?.whatsappLink || 'https://wa.me/919694834669'} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            WhatsApp
+          </a>
+        ),
       });
 
       setFormData({
