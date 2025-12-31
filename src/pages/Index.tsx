@@ -8,21 +8,25 @@ import { ReviewsSection } from '@/components/sections/ReviewsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
+import Preloader from '@/components/Preloader';
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-background">
-      <Navbar />
-      <HeroSection />
-      <CircularGallery />
-      <AboutSection />
-      <PortfolioSection />
-      <ServicesSection />
-      <ReviewsSection />
-      <ContactSection />
-      <Footer />
-      <FloatingWhatsApp />
-    </main>
+    <>
+      <Preloader />
+      <main className="min-h-screen bg-background">
+        <Navbar />
+        <HeroSection />
+        <CircularGallery />
+        <AboutSection />
+        <PortfolioSection />
+        <ServicesSection />
+        <ReviewsSection />
+        <ContactSection />
+        <Footer />
+        <FloatingWhatsApp />
+      </main>
+    </>
   );
 };
 
