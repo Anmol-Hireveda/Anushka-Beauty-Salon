@@ -8,13 +8,11 @@ import { ReviewsSection } from '@/components/sections/ReviewsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
-import Preloader from '@/components/Preloader';
 import CursorGlitter from '@/components/CursorGlitter';
 
 const Index = () => {
   return (
     <>
-      <Preloader />
       <CursorGlitter />
       <main className="min-h-screen bg-background">
         <Navbar />
