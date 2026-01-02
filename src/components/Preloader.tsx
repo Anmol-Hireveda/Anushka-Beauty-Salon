@@ -32,6 +32,55 @@ const SparkleParticle = ({ delay, x, y }: { delay: number; x: number; y: number 
   </motion.div>
 );
 
+// Mini sparkle that orbits around icons
+const IconSparkle = ({ delay, angle, distance }: { delay: number; angle: number; distance: number }) => {
+  const radians = (angle * Math.PI) / 180;
+  const x = Math.cos(radians) * distance;
+  const y = Math.sin(radians) * distance;
+  
+  return (
+    <motion.div
+      className="absolute left-1/2 top-1/2 w-2 h-2"
+      style={{ x: x - 4, y: y - 4 }}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{
+        opacity: [0, 1, 1, 0],
+        scale: [0, 1.2, 0.8, 0],
+        rotate: [0, 180, 360],
+      }}
+      transition={{
+        duration: 1.5,
+        repeat: Infinity,
+        delay,
+        ease: 'easeInOut',
+      }}
+    >
+      <div className="w-full h-full bg-primary rounded-full shadow-[0_0_6px_2px_hsl(var(--primary)/0.6)]" />
+    </motion.div>
+  );
+};
+
+// Star burst sparkle
+const StarSparkle = ({ delay }: { delay: number }) => (
+  <motion.div
+    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+    initial={{ opacity: 0, scale: 0, rotate: 0 }}
+    animate={{
+      opacity: [0, 1, 0],
+      scale: [0, 1.5, 0],
+      rotate: [0, 180],
+    }}
+    transition={{
+      duration: 2,
+      repeat: Infinity,
+      delay,
+      ease: 'easeOut',
+    }}
+  >
+    <Sparkles className="w-6 h-6 text-primary/80" />
+  </motion.div>
+);
+
 // Spray particle component for perfume
 const SprayParticle = ({ delay, angle }: { delay: number; angle: number }) => {
   const radians = (angle * Math.PI) / 180;
@@ -158,6 +207,19 @@ const Preloader = () => {
                       delay: index * 0.2 
                     }}
                   />
+                  
+                  {/* Orbiting sparkles around each icon */}
+                  {[0, 1, 2, 3, 4, 5].map((i) => (
+                    <IconSparkle 
+                      key={i} 
+                      delay={index * 0.3 + i * 0.25} 
+                      angle={i * 60 + index * 30} 
+                      distance={35 + (i % 2) * 10} 
+                    />
+                  ))}
+                  
+                  {/* Star burst sparkle */}
+                  <StarSparkle delay={index * 0.4 + 0.5} />
                   
                   {/* Spray effect for perfume */}
                   {icon.hasSpray && (
