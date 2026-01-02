@@ -502,6 +502,141 @@ const Preloader = () => {
                   ))}
                 </motion.svg>
               </motion.div>
+
+              {/* Mascara Wand Icon with Brushing Animation */}
+              <motion.div
+                initial={{ scale: 0, rotate: 30 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: 'spring', delay: 1 }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
+                />
+                <motion.svg
+                  width="60"
+                  height="60"
+                  viewBox="0 0 64 64"
+                  className="relative z-10"
+                  animate={{ 
+                    rotate: [0, 15, -15, 10, -10, 0],
+                    y: [0, -2, 2, -1, 1, 0]
+                  }}
+                  transition={{ 
+                    duration: 2.5, 
+                    repeat: Infinity, 
+                    ease: 'easeInOut',
+                    delay: 1.2 
+                  }}
+                >
+                  {/* Mascara wand handle */}
+                  <motion.rect
+                    x="29"
+                    y="32"
+                    width="6"
+                    height="26"
+                    rx="2"
+                    fill="hsl(var(--foreground) / 0.1)"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.5, delay: 1.1 }}
+                  />
+                  
+                  {/* Mascara wand connector */}
+                  <motion.rect
+                    x="30"
+                    y="28"
+                    width="4"
+                    height="6"
+                    fill="hsl(var(--primary) / 0.6)"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.3, delay: 1.3 }}
+                  />
+                  
+                  {/* Mascara brush base */}
+                  <motion.ellipse
+                    cx="32"
+                    cy="16"
+                    rx="6"
+                    ry="12"
+                    fill="hsl(var(--primary))"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.4, delay: 1.4 }}
+                  />
+                  
+                  {/* Brush bristles - left side */}
+                  {[0, 1, 2, 3, 4, 5].map((i) => (
+                    <motion.line
+                      key={`left-${i}`}
+                      x1="26"
+                      y1={8 + i * 3}
+                      x2="22"
+                      y2={7 + i * 3}
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1, 
+                        opacity: 1,
+                        x1: [26, 25, 26],
+                        x2: [22, 20, 22]
+                      }}
+                      transition={{ 
+                        pathLength: { duration: 0.3, delay: 1.5 + i * 0.05 },
+                        opacity: { duration: 0.2, delay: 1.5 + i * 0.05 },
+                        x1: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 },
+                        x2: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 }
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Brush bristles - right side */}
+                  {[0, 1, 2, 3, 4, 5].map((i) => (
+                    <motion.line
+                      key={`right-${i}`}
+                      x1="38"
+                      y1={8 + i * 3}
+                      x2="42"
+                      y2={7 + i * 3}
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1, 
+                        opacity: 1,
+                        x1: [38, 39, 38],
+                        x2: [42, 44, 42]
+                      }}
+                      transition={{ 
+                        pathLength: { duration: 0.3, delay: 1.5 + i * 0.05 },
+                        opacity: { duration: 0.2, delay: 1.5 + i * 0.05 },
+                        x1: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 + 0.5 },
+                        x2: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 + 0.5 }
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Brush shine highlight */}
+                  <motion.ellipse
+                    cx="30"
+                    cy="12"
+                    rx="2"
+                    ry="5"
+                    fill="hsl(var(--primary) / 0.4)"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.3, 0.7, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1.6 }}
+                  />
+                </motion.svg>
+              </motion.div>
             </div>
 
             {/* Animated Logo/Text with Shimmer */}
