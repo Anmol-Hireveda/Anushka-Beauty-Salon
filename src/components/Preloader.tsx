@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Sparkles } from 'lucide-react';
+import { GiLipstick, GiPerfumeBottle, GiMirrorMirror, GiPaintBrush } from 'react-icons/gi';
 
 // Sparkle component for floating particles
 const SparkleParticle = ({ delay, x, y }: { delay: number; x: number; y: number }) => (
@@ -23,6 +24,36 @@ const SparkleParticle = ({ delay, x, y }: { delay: number; x: number; y: number 
     <Sparkles className="w-4 h-4 text-primary" />
   </motion.div>
 );
+
+// Spray particle component for perfume
+const SprayParticle = ({ delay, angle }: { delay: number; angle: number }) => {
+  const radians = (angle * Math.PI) / 180;
+  const distance = 25 + Math.random() * 15;
+  const endX = Math.cos(radians) * distance;
+  const endY = Math.sin(radians) * distance;
+  
+  return (
+    <motion.circle
+      cx="32"
+      cy="10"
+      r="1.5"
+      fill="hsl(var(--primary) / 0.6)"
+      initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
+      animate={{
+        opacity: [0, 0.8, 0],
+        x: [0, endX * 0.5, endX],
+        y: [0, endY * 0.5, endY],
+        scale: [0, 1, 0.5],
+      }}
+      transition={{
+        duration: 1.2,
+        repeat: Infinity,
+        delay,
+        ease: 'easeOut',
+      }}
+    />
+  );
+};
 
 const Preloader = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,6 +79,9 @@ const Preloader = () => {
     { delay: 0.7, x: 90, y: 45 },
     { delay: 1.1, x: 45, y: 85 },
   ];
+
+  // Generate spray particles with different angles
+  const sprayAngles = [-60, -45, -30, -15, 0, 15, 30, 45, 60];
 
   return (
     <AnimatePresence>
@@ -78,8 +112,8 @@ const Preloader = () => {
 
           <div className="flex flex-col items-center gap-6 relative z-10">
             {/* Makeup Icons Row */}
-            <div className="flex items-center gap-8">
-              {/* Makeup Brush Icon */}
+            <div className="flex items-center gap-6 flex-wrap justify-center max-w-lg">
+              {/* Paint Brush Icon (react-icons) */}
               <motion.div
                 initial={{ scale: 0, rotate: -45 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -91,54 +125,16 @@ const Preloader = () => {
                   animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                <motion.svg
-                  width="60"
-                  height="60"
-                  viewBox="0 0 64 64"
-                  className="relative z-10"
+                <motion.div
+                  className="relative z-10 text-primary"
                   animate={{ rotate: [0, 8, -8, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
                 >
-                  {/* Brush bristles */}
-                  <motion.ellipse
-                    cx="32"
-                    cy="12"
-                    rx="10"
-                    ry="8"
-                    fill="hsl(var(--primary))"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                  />
-                  {/* Brush ferrule */}
-                  <motion.rect
-                    x="28"
-                    y="18"
-                    width="8"
-                    height="6"
-                    fill="hsl(var(--primary) / 0.7)"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.3, delay: 0.5 }}
-                  />
-                  {/* Brush handle */}
-                  <motion.rect
-                    x="29"
-                    y="24"
-                    width="6"
-                    height="32"
-                    rx="2"
-                    fill="hsl(var(--foreground) / 0.1)"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                  />
-                </motion.svg>
+                  <GiPaintBrush size={56} />
+                </motion.div>
               </motion.div>
 
-              {/* Lipstick Icon with Glow */}
+              {/* Lipstick Icon (react-icons) */}
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -150,59 +146,16 @@ const Preloader = () => {
                   animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                <motion.svg
-                  width="80"
-                  height="80"
-                  viewBox="0 0 64 64"
-                  className="relative z-10"
+                <motion.div
+                  className="relative z-10 text-primary"
                   animate={{ rotate: [0, 5, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                  <motion.path
-                    d="M26 8 L38 8 L38 20 L32 28 L26 20 Z"
-                    fill="hsl(var(--primary))"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 0.2 }}
-                  />
-                  <motion.rect
-                    x="24"
-                    y="20"
-                    width="16"
-                    height="8"
-                    fill="hsl(var(--primary) / 0.8)"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                  />
-                  <motion.rect
-                    x="22"
-                    y="28"
-                    width="20"
-                    height="28"
-                    rx="3"
-                    fill="hsl(var(--foreground) / 0.1)"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.5, delay: 0.7 }}
-                  />
-                  <motion.line
-                    x1="22"
-                    y1="38"
-                    x2="42"
-                    y2="38"
-                    stroke="hsl(var(--primary) / 0.5)"
-                    strokeWidth="1"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.3, delay: 1 }}
-                  />
-                </motion.svg>
+                  <GiLipstick size={64} />
+                </motion.div>
               </motion.div>
 
-              {/* Mirror Icon */}
+              {/* Mirror Icon (react-icons) */}
               <motion.div
                 initial={{ scale: 0, rotate: 45 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -214,141 +167,50 @@ const Preloader = () => {
                   animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
                 />
-                <motion.svg
-                  width="60"
-                  height="60"
-                  viewBox="0 0 64 64"
-                  className="relative z-10"
+                <motion.div
+                  className="relative z-10 text-primary"
                   animate={{ rotate: [0, -5, 5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                 >
-                  {/* Mirror glass */}
-                  <motion.circle
-                    cx="32"
-                    cy="24"
-                    r="18"
-                    fill="hsl(var(--foreground) / 0.05)"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="3"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                  />
-                  {/* Mirror shine */}
-                  <motion.ellipse
-                    cx="26"
-                    cy="18"
-                    rx="6"
-                    ry="4"
-                    fill="hsl(var(--primary) / 0.3)"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 0.8 }}
-                  />
-                  {/* Mirror handle */}
-                  <motion.rect
-                    x="29"
-                    y="40"
-                    width="6"
-                    height="18"
-                    rx="2"
-                    fill="hsl(var(--foreground) / 0.1)"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.5, delay: 0.7 }}
-                  />
-                </motion.svg>
+                  <GiMirrorMirror size={56} />
+                </motion.div>
               </motion.div>
 
-              {/* Compact Mirror Icon with Flip Animation */}
+              {/* Perfume Bottle Icon with Spray Animation (react-icons) */}
               <motion.div
-                initial={{ scale: 0, rotateY: 180 }}
-                animate={{ scale: 1, rotateY: 0 }}
+                initial={{ scale: 0, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
                 transition={{ duration: 0.8, type: 'spring', delay: 0.6 }}
                 className="relative"
-                style={{ perspective: '500px' }}
               >
                 <motion.div
                   className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
                   animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
                 />
-                <motion.div
-                  className="relative z-10"
-                  animate={{ rotateY: [0, 180, 360] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-                  style={{ transformStyle: 'preserve-3d' }}
+                {/* Spray mist particles */}
+                <motion.svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 64 64"
+                  className="absolute -top-6 left-0 z-20"
                 >
-                  <motion.svg
-                    width="60"
-                    height="60"
-                    viewBox="0 0 64 64"
-                  >
-                    {/* Compact case outer */}
-                    <motion.rect
-                      x="8"
-                      y="12"
-                      width="48"
-                      height="40"
-                      rx="6"
-                      fill="hsl(var(--foreground) / 0.1)"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="2"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.7 }}
-                    />
-                    {/* Mirror surface */}
-                    <motion.rect
-                      x="12"
-                      y="16"
-                      width="40"
-                      height="32"
-                      rx="4"
-                      fill="hsl(var(--primary) / 0.1)"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.4, delay: 0.9 }}
-                    />
-                    {/* Mirror shine effect */}
-                    <motion.ellipse
-                      cx="22"
-                      cy="26"
-                      rx="8"
-                      ry="5"
-                      fill="hsl(var(--primary) / 0.4)"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0.2, 0.6, 0.2] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                    />
-                    {/* Secondary shine */}
-                    <motion.ellipse
-                      cx="40"
-                      cy="36"
-                      rx="5"
-                      ry="3"
-                      fill="hsl(var(--primary) / 0.3)"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0.1, 0.4, 0.1] }}
-                      transition={{ duration: 2.5, repeat: Infinity, delay: 1.2 }}
-                    />
-                    {/* Decorative clasp */}
-                    <motion.circle
-                      cx="32"
-                      cy="52"
-                      r="3"
-                      fill="hsl(var(--primary))"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 1.5, repeat: Infinity, delay: 1.1 }}
-                    />
-                  </motion.svg>
+                  {sprayAngles.map((angle, i) => (
+                    <SprayParticle key={i} delay={i * 0.15} angle={angle - 90} />
+                  ))}
+                </motion.svg>
+                <motion.div
+                  className="relative z-10 text-primary"
+                  animate={{ 
+                    scale: [1, 1.02, 1],
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <GiPerfumeBottle size={56} />
                 </motion.div>
               </motion.div>
 
-              {/* Eyeshadow Palette Icon with Color-Changing Animation */}
+              {/* Eyeshadow Palette Icon (custom SVG - no react-icon available) */}
               <motion.div
                 initial={{ scale: 0, rotate: -30 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -361,8 +223,8 @@ const Preloader = () => {
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
                 />
                 <motion.svg
-                  width="70"
-                  height="60"
+                  width="60"
+                  height="50"
                   viewBox="0 0 80 64"
                   className="relative z-10"
                   animate={{ rotate: [0, 3, -3, 0] }}
@@ -383,110 +245,36 @@ const Preloader = () => {
                     transition={{ duration: 0.5, delay: 0.9 }}
                   />
                   
-                  {/* Eyeshadow pan 1 - Pink */}
-                  <motion.circle
-                    cx="22"
-                    cy="24"
-                    r="8"
-                    initial={{ scale: 0 }}
-                    animate={{ 
-                      scale: 1,
-                      fill: ['hsl(330, 80%, 60%)', 'hsl(350, 85%, 65%)', 'hsl(320, 75%, 55%)', 'hsl(330, 80%, 60%)']
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.3, delay: 1 },
-                      fill: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
-                    }}
-                  />
-                  
-                  {/* Eyeshadow pan 2 - Gold */}
-                  <motion.circle
-                    cx="42"
-                    cy="24"
-                    r="8"
-                    initial={{ scale: 0 }}
-                    animate={{ 
-                      scale: 1,
-                      fill: ['hsl(45, 90%, 55%)', 'hsl(35, 85%, 50%)', 'hsl(50, 95%, 60%)', 'hsl(45, 90%, 55%)']
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.3, delay: 1.1 },
-                      fill: { duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }
-                    }}
-                  />
-                  
-                  {/* Eyeshadow pan 3 - Purple */}
-                  <motion.circle
-                    cx="62"
-                    cy="24"
-                    r="8"
-                    initial={{ scale: 0 }}
-                    animate={{ 
-                      scale: 1,
-                      fill: ['hsl(280, 70%, 55%)', 'hsl(260, 75%, 50%)', 'hsl(300, 65%, 60%)', 'hsl(280, 70%, 55%)']
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.3, delay: 1.2 },
-                      fill: { duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }
-                    }}
-                  />
-                  
-                  {/* Eyeshadow pan 4 - Brown */}
-                  <motion.circle
-                    cx="22"
-                    cy="44"
-                    r="8"
-                    initial={{ scale: 0 }}
-                    animate={{ 
-                      scale: 1,
-                      fill: ['hsl(25, 60%, 40%)', 'hsl(20, 55%, 35%)', 'hsl(30, 65%, 45%)', 'hsl(25, 60%, 40%)']
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.3, delay: 1.3 },
-                      fill: { duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }
-                    }}
-                  />
-                  
-                  {/* Eyeshadow pan 5 - Teal */}
-                  <motion.circle
-                    cx="42"
-                    cy="44"
-                    r="8"
-                    initial={{ scale: 0 }}
-                    animate={{ 
-                      scale: 1,
-                      fill: ['hsl(180, 70%, 45%)', 'hsl(170, 65%, 40%)', 'hsl(190, 75%, 50%)', 'hsl(180, 70%, 45%)']
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.3, delay: 1.4 },
-                      fill: { duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }
-                    }}
-                  />
-                  
-                  {/* Eyeshadow pan 6 - Rose Gold */}
-                  <motion.circle
-                    cx="62"
-                    cy="44"
-                    r="8"
-                    initial={{ scale: 0 }}
-                    animate={{ 
-                      scale: 1,
-                      fill: ['hsl(10, 70%, 65%)', 'hsl(15, 75%, 60%)', 'hsl(5, 65%, 70%)', 'hsl(10, 70%, 65%)']
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.3, delay: 1.5 },
-                      fill: { duration: 3.4, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }
-                    }}
-                  />
-                  
-                  {/* Shimmer highlights on pans */}
+                  {/* Eyeshadow pans with color-changing animation */}
                   {[
-                    { cx: 19, cy: 21 },
-                    { cx: 39, cy: 21 },
-                    { cx: 59, cy: 21 },
-                    { cx: 19, cy: 41 },
-                    { cx: 39, cy: 41 },
-                    { cx: 59, cy: 41 },
+                    { cx: 22, cy: 24, colors: ['hsl(330, 80%, 60%)', 'hsl(350, 85%, 65%)', 'hsl(320, 75%, 55%)'] },
+                    { cx: 42, cy: 24, colors: ['hsl(45, 90%, 55%)', 'hsl(35, 85%, 50%)', 'hsl(50, 95%, 60%)'] },
+                    { cx: 62, cy: 24, colors: ['hsl(280, 70%, 55%)', 'hsl(260, 75%, 50%)', 'hsl(300, 65%, 60%)'] },
+                    { cx: 22, cy: 44, colors: ['hsl(25, 60%, 40%)', 'hsl(20, 55%, 35%)', 'hsl(30, 65%, 45%)'] },
+                    { cx: 42, cy: 44, colors: ['hsl(180, 70%, 45%)', 'hsl(170, 65%, 40%)', 'hsl(190, 75%, 50%)'] },
+                    { cx: 62, cy: 44, colors: ['hsl(10, 70%, 65%)', 'hsl(15, 75%, 60%)', 'hsl(5, 65%, 70%)'] },
+                  ].map((pan, i) => (
+                    <motion.circle
+                      key={i}
+                      cx={pan.cx}
+                      cy={pan.cy}
+                      r="8"
+                      initial={{ scale: 0 }}
+                      animate={{ 
+                        scale: 1,
+                        fill: [...pan.colors, pan.colors[0]]
+                      }}
+                      transition={{ 
+                        scale: { duration: 0.3, delay: 1 + i * 0.1 },
+                        fill: { duration: 3 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Shimmer highlights */}
+                  {[
+                    { cx: 19, cy: 21 }, { cx: 39, cy: 21 }, { cx: 59, cy: 21 },
+                    { cx: 19, cy: 41 }, { cx: 39, cy: 41 }, { cx: 59, cy: 41 },
                   ].map((pos, i) => (
                     <motion.ellipse
                       key={i}
@@ -503,7 +291,7 @@ const Preloader = () => {
                 </motion.svg>
               </motion.div>
 
-              {/* Mascara Wand Icon with Brushing Animation */}
+              {/* Mascara Wand Icon (custom SVG - no react-icon available) */}
               <motion.div
                 initial={{ scale: 0, rotate: 30 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -516,8 +304,8 @@ const Preloader = () => {
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
                 />
                 <motion.svg
-                  width="60"
-                  height="60"
+                  width="50"
+                  height="50"
                   viewBox="0 0 64 64"
                   className="relative z-10"
                   animate={{ 
@@ -546,18 +334,6 @@ const Preloader = () => {
                     transition={{ duration: 0.5, delay: 1.1 }}
                   />
                   
-                  {/* Mascara wand connector */}
-                  <motion.rect
-                    x="30"
-                    y="28"
-                    width="4"
-                    height="6"
-                    fill="hsl(var(--primary) / 0.6)"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.3, delay: 1.3 }}
-                  />
-                  
                   {/* Mascara brush base */}
                   <motion.ellipse
                     cx="32"
@@ -567,7 +343,7 @@ const Preloader = () => {
                     fill="hsl(var(--primary))"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.4 }}
+                    transition={{ duration: 0.4, delay: 1.3 }}
                   />
                   
                   {/* Brush bristles - left side */}
@@ -589,8 +365,8 @@ const Preloader = () => {
                         x2: [22, 20, 22]
                       }}
                       transition={{ 
-                        pathLength: { duration: 0.3, delay: 1.5 + i * 0.05 },
-                        opacity: { duration: 0.2, delay: 1.5 + i * 0.05 },
+                        pathLength: { duration: 0.3, delay: 1.4 + i * 0.05 },
+                        opacity: { duration: 0.2, delay: 1.4 + i * 0.05 },
                         x1: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 },
                         x2: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 }
                       }}
@@ -616,15 +392,15 @@ const Preloader = () => {
                         x2: [42, 44, 42]
                       }}
                       transition={{ 
-                        pathLength: { duration: 0.3, delay: 1.5 + i * 0.05 },
-                        opacity: { duration: 0.2, delay: 1.5 + i * 0.05 },
+                        pathLength: { duration: 0.3, delay: 1.4 + i * 0.05 },
+                        opacity: { duration: 0.2, delay: 1.4 + i * 0.05 },
                         x1: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 + 0.5 },
                         x2: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 + 0.5 }
                       }}
                     />
                   ))}
                   
-                  {/* Brush shine highlight */}
+                  {/* Brush shine */}
                   <motion.ellipse
                     cx="30"
                     cy="12"
@@ -633,7 +409,7 @@ const Preloader = () => {
                     fill="hsl(var(--primary) / 0.4)"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0.3, 0.7, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 1.6 }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
                   />
                 </motion.svg>
               </motion.div>
