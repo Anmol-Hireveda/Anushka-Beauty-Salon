@@ -172,7 +172,7 @@ const Preloader = () => {
                   <motion.img
                     src={icon.src}
                     alt={icon.alt}
-                    className="relative z-10 w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-lg"
+                    className="relative z-10 w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-lg mix-blend-multiply dark:mix-blend-screen dark:invert"
                     animate={{ 
                       rotate: [0, icon.rotation[0], icon.rotation[1], 0],
                       y: [0, -3, 0],
