@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Instagram, Phone, MessageCircle } from 'lucide-react';
+import { Menu, X, Instagram, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
@@ -90,15 +90,6 @@ export function Navbar() {
               >
                 <Instagram className="w-5 h-5" />
               </motion.a>
-              <motion.a
-                href="https://wa.me/919694834669"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-foreground/70 hover:text-primary transition-colors"
-                whileHover={{ scale: 1.1, rotate: -5 }}
-              >
-                <MessageCircle className="w-5 h-5" />
-              </motion.a>
               <ThemeToggle />
               <Button
                 onClick={() => scrollToSection('#contact')}
@@ -166,14 +157,6 @@ export function Navbar() {
                     className="p-3 bg-secondary rounded-full text-foreground hover:text-primary transition-colors"
                   >
                     <Instagram className="w-5 h-5" />
-                  </a>
-                  <a
-                    href="https://wa.me/919694834669"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-secondary rounded-full text-foreground hover:text-primary transition-colors"
-                  >
-                    <MessageCircle className="w-5 h-5" />
                   </a>
                   <a
                     href="tel:+917976008850"
