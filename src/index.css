@@ -100,7 +100,6 @@
 @layer base {
   * {
     @apply border-border;
-    cursor: url('/cursors/lipstick.png') 12 2, auto !important;
   }
 
   html {
@@ -114,11 +113,6 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-  }
-
-  /* Pointer cursor for interactive elements */
-  a, button, [role="button"], input[type="submit"], input[type="button"], select {
-    cursor: url('/cursors/lipstick.png') 12 2, pointer !important;
   }
 }
 
