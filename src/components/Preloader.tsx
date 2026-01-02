@@ -347,6 +347,161 @@ const Preloader = () => {
                   </motion.svg>
                 </motion.div>
               </motion.div>
+
+              {/* Eyeshadow Palette Icon with Color-Changing Animation */}
+              <motion.div
+                initial={{ scale: 0, rotate: -30 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: 'spring', delay: 0.8 }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
+                />
+                <motion.svg
+                  width="70"
+                  height="60"
+                  viewBox="0 0 80 64"
+                  className="relative z-10"
+                  animate={{ rotate: [0, 3, -3, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                >
+                  {/* Palette case */}
+                  <motion.rect
+                    x="4"
+                    y="8"
+                    width="72"
+                    height="48"
+                    rx="8"
+                    fill="hsl(var(--foreground) / 0.1)"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.9 }}
+                  />
+                  
+                  {/* Eyeshadow pan 1 - Pink */}
+                  <motion.circle
+                    cx="22"
+                    cy="24"
+                    r="8"
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: 1,
+                      fill: ['hsl(330, 80%, 60%)', 'hsl(350, 85%, 65%)', 'hsl(320, 75%, 55%)', 'hsl(330, 80%, 60%)']
+                    }}
+                    transition={{ 
+                      scale: { duration: 0.3, delay: 1 },
+                      fill: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
+                    }}
+                  />
+                  
+                  {/* Eyeshadow pan 2 - Gold */}
+                  <motion.circle
+                    cx="42"
+                    cy="24"
+                    r="8"
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: 1,
+                      fill: ['hsl(45, 90%, 55%)', 'hsl(35, 85%, 50%)', 'hsl(50, 95%, 60%)', 'hsl(45, 90%, 55%)']
+                    }}
+                    transition={{ 
+                      scale: { duration: 0.3, delay: 1.1 },
+                      fill: { duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }
+                    }}
+                  />
+                  
+                  {/* Eyeshadow pan 3 - Purple */}
+                  <motion.circle
+                    cx="62"
+                    cy="24"
+                    r="8"
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: 1,
+                      fill: ['hsl(280, 70%, 55%)', 'hsl(260, 75%, 50%)', 'hsl(300, 65%, 60%)', 'hsl(280, 70%, 55%)']
+                    }}
+                    transition={{ 
+                      scale: { duration: 0.3, delay: 1.2 },
+                      fill: { duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }
+                    }}
+                  />
+                  
+                  {/* Eyeshadow pan 4 - Brown */}
+                  <motion.circle
+                    cx="22"
+                    cy="44"
+                    r="8"
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: 1,
+                      fill: ['hsl(25, 60%, 40%)', 'hsl(20, 55%, 35%)', 'hsl(30, 65%, 45%)', 'hsl(25, 60%, 40%)']
+                    }}
+                    transition={{ 
+                      scale: { duration: 0.3, delay: 1.3 },
+                      fill: { duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }
+                    }}
+                  />
+                  
+                  {/* Eyeshadow pan 5 - Teal */}
+                  <motion.circle
+                    cx="42"
+                    cy="44"
+                    r="8"
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: 1,
+                      fill: ['hsl(180, 70%, 45%)', 'hsl(170, 65%, 40%)', 'hsl(190, 75%, 50%)', 'hsl(180, 70%, 45%)']
+                    }}
+                    transition={{ 
+                      scale: { duration: 0.3, delay: 1.4 },
+                      fill: { duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }
+                    }}
+                  />
+                  
+                  {/* Eyeshadow pan 6 - Rose Gold */}
+                  <motion.circle
+                    cx="62"
+                    cy="44"
+                    r="8"
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: 1,
+                      fill: ['hsl(10, 70%, 65%)', 'hsl(15, 75%, 60%)', 'hsl(5, 65%, 70%)', 'hsl(10, 70%, 65%)']
+                    }}
+                    transition={{ 
+                      scale: { duration: 0.3, delay: 1.5 },
+                      fill: { duration: 3.4, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }
+                    }}
+                  />
+                  
+                  {/* Shimmer highlights on pans */}
+                  {[
+                    { cx: 19, cy: 21 },
+                    { cx: 39, cy: 21 },
+                    { cx: 59, cy: 21 },
+                    { cx: 19, cy: 41 },
+                    { cx: 39, cy: 41 },
+                    { cx: 59, cy: 41 },
+                  ].map((pos, i) => (
+                    <motion.ellipse
+                      key={i}
+                      cx={pos.cx}
+                      cy={pos.cy}
+                      rx="3"
+                      ry="2"
+                      fill="white"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0.3, 0.7, 0.3] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                    />
+                  ))}
+                </motion.svg>
+              </motion.div>
             </div>
 
             {/* Animated Logo/Text with Shimmer */}
