@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/ThemeToggle';
+
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -79,9 +79,8 @@ export function Navbar() {
               ))}
             </div>
 
-            {/* Social & CTA */}
+            {/* CTA */}
             <div className="hidden lg:flex items-center gap-4">
-              <ThemeToggle />
               <Button
                 onClick={() => scrollToSection('#contact')}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
