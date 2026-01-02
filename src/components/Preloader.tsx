@@ -77,83 +77,191 @@ const Preloader = () => {
           ))}
 
           <div className="flex flex-col items-center gap-6 relative z-10">
-            {/* Makeup Icon with Glow */}
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 0.8, type: 'spring' }}
-              className="relative"
-            >
-              {/* Glow effect */}
+            {/* Makeup Icons Row */}
+            <div className="flex items-center gap-8">
+              {/* Makeup Brush Icon */}
               <motion.div
-                className="absolute inset-0 bg-primary/30 rounded-full blur-xl"
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.5, 0.8, 0.5],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-              
-              {/* Lipstick Icon SVG */}
-              <motion.svg
-                width="80"
-                height="80"
-                viewBox="0 0 64 64"
-                className="relative z-10"
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                initial={{ scale: 0, rotate: -45 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: 'spring', delay: 0.2 }}
+                className="relative"
               >
-                {/* Lipstick tip */}
-                <motion.path
-                  d="M26 8 L38 8 L38 20 L32 28 L26 20 Z"
-                  fill="hsl(var(--primary))"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1, delay: 0.2 }}
+                <motion.div
+                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                {/* Lipstick body */}
-                <motion.rect
-                  x="24"
-                  y="20"
-                  width="16"
-                  height="8"
-                  fill="hsl(var(--primary) / 0.8)"
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
+                <motion.svg
+                  width="60"
+                  height="60"
+                  viewBox="0 0 64 64"
+                  className="relative z-10"
+                  animate={{ rotate: [0, 8, -8, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                >
+                  {/* Brush bristles */}
+                  <motion.ellipse
+                    cx="32"
+                    cy="12"
+                    rx="10"
+                    ry="8"
+                    fill="hsl(var(--primary))"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                  />
+                  {/* Brush ferrule */}
+                  <motion.rect
+                    x="28"
+                    y="18"
+                    width="8"
+                    height="6"
+                    fill="hsl(var(--primary) / 0.7)"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                  />
+                  {/* Brush handle */}
+                  <motion.rect
+                    x="29"
+                    y="24"
+                    width="6"
+                    height="32"
+                    rx="2"
+                    fill="hsl(var(--foreground) / 0.1)"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  />
+                </motion.svg>
+              </motion.div>
+
+              {/* Lipstick Icon with Glow */}
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: 'spring' }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-primary/30 rounded-full blur-xl"
+                  animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                {/* Lipstick tube */}
-                <motion.rect
-                  x="22"
-                  y="28"
-                  width="20"
-                  height="28"
-                  rx="3"
-                  fill="hsl(var(--foreground) / 0.1)"
-                  stroke="hsl(var(--primary))"
-                  strokeWidth="2"
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
+                <motion.svg
+                  width="80"
+                  height="80"
+                  viewBox="0 0 64 64"
+                  className="relative z-10"
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <motion.path
+                    d="M26 8 L38 8 L38 20 L32 28 L26 20 Z"
+                    fill="hsl(var(--primary))"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1, delay: 0.2 }}
+                  />
+                  <motion.rect
+                    x="24"
+                    y="20"
+                    width="16"
+                    height="8"
+                    fill="hsl(var(--primary) / 0.8)"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  />
+                  <motion.rect
+                    x="22"
+                    y="28"
+                    width="20"
+                    height="28"
+                    rx="3"
+                    fill="hsl(var(--foreground) / 0.1)"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  />
+                  <motion.line
+                    x1="22"
+                    y1="38"
+                    x2="42"
+                    y2="38"
+                    stroke="hsl(var(--primary) / 0.5)"
+                    strokeWidth="1"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.3, delay: 1 }}
+                  />
+                </motion.svg>
+              </motion.div>
+
+              {/* Mirror Icon */}
+              <motion.div
+                initial={{ scale: 0, rotate: 45 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: 'spring', delay: 0.4 }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
                 />
-                {/* Tube details */}
-                <motion.line
-                  x1="22"
-                  y1="38"
-                  x2="42"
-                  y2="38"
-                  stroke="hsl(var(--primary) / 0.5)"
-                  strokeWidth="1"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.3, delay: 1 }}
-                />
-              </motion.svg>
-            </motion.div>
+                <motion.svg
+                  width="60"
+                  height="60"
+                  viewBox="0 0 64 64"
+                  className="relative z-10"
+                  animate={{ rotate: [0, -5, 5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                >
+                  {/* Mirror glass */}
+                  <motion.circle
+                    cx="32"
+                    cy="24"
+                    r="18"
+                    fill="hsl(var(--foreground) / 0.05)"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="3"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  />
+                  {/* Mirror shine */}
+                  <motion.ellipse
+                    cx="26"
+                    cy="18"
+                    rx="6"
+                    ry="4"
+                    fill="hsl(var(--primary) / 0.3)"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.8 }}
+                  />
+                  {/* Mirror handle */}
+                  <motion.rect
+                    x="29"
+                    y="40"
+                    width="6"
+                    height="18"
+                    rx="2"
+                    fill="hsl(var(--foreground) / 0.1)"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  />
+                </motion.svg>
+              </motion.div>
+            </div>
 
             {/* Animated Logo/Text with Shimmer */}
             <motion.div
