@@ -1,333 +1,332 @@
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
 
-// Import 3D realistic icons
-import lipstickIcon from '@/assets/icons/lipstick-3d.png';
-import perfumeIcon from '@/assets/icons/perfume-3d.png';
-import mascaraIcon from '@/assets/icons/mascara-3d.png';
-import brushIcon from '@/assets/icons/brush-3d.png';
-import mirrorIcon from '@/assets/icons/mirror-3d.png';
-import eyeshadowIcon from '@/assets/icons/eyeshadow-3d.png';
-
-// Sparkle component for floating particles
-const SparkleParticle = ({ delay, x, y }: { delay: number; x: number; y: number }) => (
+// Spray particle component
+const SprayParticle = ({ delay, x, y }: { delay: number; x: number; y: number }) => (
   <motion.div
-    className="absolute"
-    style={{ left: `${x}%`, top: `${y}%` }}
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{
-      opacity: [0, 1, 0],
-      scale: [0, 1, 0],
-      y: [-20, -40],
+    className="absolute rounded-full bg-primary/40"
+    style={{
+      width: Math.random() * 8 + 4,
+      height: Math.random() * 8 + 4,
     }}
-    transition={{
-      duration: 2,
-      repeat: Infinity,
+    initial={{ 
+      x: 0, 
+      y: 0, 
+      opacity: 0,
+      scale: 0 
+    }}
+    animate={{ 
+      x: x + (Math.random() - 0.5) * 100,
+      y: y + Math.random() * 150,
+      opacity: [0, 0.8, 0.4, 0],
+      scale: [0, 1.5, 1, 0.5],
+    }}
+    transition={{ 
+      duration: 1.5,
       delay,
       ease: 'easeOut',
     }}
-  >
-    <Sparkles className="w-4 h-4 text-primary" />
-  </motion.div>
+  />
 );
 
-// Mini sparkle that orbits around icons
-const IconSparkle = ({ delay, angle, distance }: { delay: number; angle: number; distance: number }) => {
-  const radians = (angle * Math.PI) / 180;
-  const x = Math.cos(radians) * distance;
-  const y = Math.sin(radians) * distance;
-  
-  return (
-    <motion.div
-      className="absolute left-1/2 top-1/2 w-2 h-2"
-      style={{ x: x - 4, y: y - 4 }}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{
-        opacity: [0, 1, 1, 0],
-        scale: [0, 1.2, 0.8, 0],
-        rotate: [0, 180, 360],
-      }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-        delay,
-        ease: 'easeInOut',
-      }}
-    >
-      <div className="w-full h-full bg-primary rounded-full shadow-[0_0_6px_2px_hsl(var(--primary)/0.6)]" />
-    </motion.div>
-  );
-};
-
-// Star burst sparkle
-const StarSparkle = ({ delay }: { delay: number }) => (
+// Mist cloud component
+const MistCloud = ({ delay, size, x, y }: { delay: number; size: number; x: number; y: number }) => (
   <motion.div
-    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-    initial={{ opacity: 0, scale: 0, rotate: 0 }}
-    animate={{
-      opacity: [0, 1, 0],
-      scale: [0, 1.5, 0],
-      rotate: [0, 180],
+    className="absolute rounded-full"
+    style={{
+      width: size,
+      height: size,
+      background: 'radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, transparent 70%)',
+      filter: 'blur(20px)',
     }}
-    transition={{
+    initial={{ 
+      x, 
+      y: y - 50, 
+      opacity: 0,
+      scale: 0 
+    }}
+    animate={{ 
+      y: y + 100,
+      opacity: [0, 0.6, 0.3, 0],
+      scale: [0, 1.5, 2, 2.5],
+    }}
+    transition={{ 
       duration: 2,
-      repeat: Infinity,
       delay,
       ease: 'easeOut',
     }}
-  >
-    <Sparkles className="w-6 h-6 text-primary/80" />
-  </motion.div>
+  />
 );
-
-// Spray particle component for perfume
-const SprayParticle = ({ delay, angle }: { delay: number; angle: number }) => {
-  const radians = (angle * Math.PI) / 180;
-  const distance = 30 + Math.random() * 20;
-  const endX = Math.cos(radians) * distance;
-  const endY = Math.sin(radians) * distance;
-  
-  return (
-    <motion.div
-      className="absolute w-1.5 h-1.5 rounded-full bg-primary/40"
-      style={{ left: '50%', top: '0' }}
-      initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
-      animate={{
-        opacity: [0, 0.8, 0],
-        x: [0, endX * 0.5, endX],
-        y: [0, endY * 0.5, endY],
-        scale: [0, 1, 0.3],
-      }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-        delay,
-        ease: 'easeOut',
-      }}
-    />
-  );
-};
 
 const Preloader = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showSpray, setShowSpray] = useState(false);
+  const [showReveal, setShowReveal] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
+    // Start spray animation after a brief pause
+    const sprayTimer = setTimeout(() => setShowSpray(true), 500);
+    
+    // Start reveal animation
+    const revealTimer = setTimeout(() => setShowReveal(true), 2000);
+    
+    // Hide preloader
+    const loadTimer = setTimeout(() => setIsLoading(false), 3500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(sprayTimer);
+      clearTimeout(revealTimer);
+      clearTimeout(loadTimer);
+    };
   }, []);
 
-  // Generate sparkle positions
-  const sparkles = [
-    { delay: 0, x: 20, y: 30 },
-    { delay: 0.3, x: 80, y: 25 },
-    { delay: 0.6, x: 15, y: 70 },
-    { delay: 0.9, x: 85, y: 65 },
-    { delay: 1.2, x: 50, y: 20 },
-    { delay: 1.5, x: 30, y: 80 },
-    { delay: 1.8, x: 70, y: 75 },
-    { delay: 0.4, x: 10, y: 50 },
-    { delay: 0.7, x: 90, y: 45 },
-    { delay: 1.1, x: 45, y: 85 },
-  ];
-
-  // Generate spray particles with different angles
-  const sprayParticles = Array.from({ length: 12 }, (_, i) => ({
-    delay: i * 0.12,
-    angle: -120 + (i * 5) + Math.random() * 10,
+  // Generate spray particles
+  const sprayParticles = Array.from({ length: 30 }, (_, i) => ({
+    id: i,
+    delay: 0.5 + Math.random() * 0.8,
+    x: (Math.random() - 0.5) * 200,
+    y: Math.random() * 100 + 50,
   }));
 
-  // Icon data for mapping
-  const makeupIcons = [
-    { src: brushIcon, alt: 'Makeup Brush', delay: 0.2, rotation: [-8, 8] },
-    { src: lipstickIcon, alt: 'Lipstick', delay: 0, rotation: [-5, 5] },
-    { src: mirrorIcon, alt: 'Mirror', delay: 0.4, rotation: [-6, 6] },
-    { src: perfumeIcon, alt: 'Perfume', delay: 0.6, rotation: [-3, 3], hasSpray: true },
-    { src: eyeshadowIcon, alt: 'Eyeshadow Palette', delay: 0.8, rotation: [-4, 4] },
-    { src: mascaraIcon, alt: 'Mascara', delay: 1, rotation: [-10, 10] },
-  ];
+  // Generate mist clouds
+  const mistClouds = Array.from({ length: 8 }, (_, i) => ({
+    id: i,
+    delay: 0.6 + i * 0.1,
+    size: 100 + Math.random() * 150,
+    x: (Math.random() - 0.5) * 300,
+    y: Math.random() * 50,
+  }));
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          initial={{ opacity: 1 }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)',
+          }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-background overflow-hidden"
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
         >
-          {/* Shimmer Background Effect */}
+          {/* Gray blur overlay that clears away */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent"
-            animate={{
-              x: ['-100%', '100%'],
+            className="absolute inset-0"
+            style={{
+              background: 'hsl(var(--muted-foreground) / 0.4)',
+              backdropFilter: 'blur(20px)',
             }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'linear',
+            initial={{ opacity: 1 }}
+            animate={{ 
+              opacity: showReveal ? 0 : 1,
             }}
+            transition={{ duration: 1.5, ease: 'easeInOut' }}
           />
 
-          {/* Floating Sparkles */}
-          {sparkles.map((sparkle, i) => (
-            <SparkleParticle key={i} {...sparkle} />
-          ))}
-
-          <div className="flex flex-col items-center gap-6 relative z-10">
-            {/* Makeup Icons Row */}
-            <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-center max-w-xl px-4">
-              {makeupIcons.map((icon, index) => (
-                <motion.div
-                  key={icon.alt}
-                  initial={{ scale: 0, y: 30, opacity: 0 }}
-                  animate={{ scale: 1, y: 0, opacity: 1 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    type: 'spring', 
-                    delay: icon.delay,
-                    stiffness: 200 
-                  }}
-                  className="relative"
-                >
-                  {/* Glow effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-primary/20 rounded-full blur-xl"
-                    animate={{ 
-                      scale: [1, 1.3, 1], 
-                      opacity: [0.3, 0.6, 0.3] 
-                    }}
-                    transition={{ 
-                      duration: 2, 
-                      repeat: Infinity, 
-                      ease: 'easeInOut',
-                      delay: index * 0.2 
-                    }}
-                  />
-                  
-                  {/* Orbiting sparkles around each icon */}
-                  {[0, 1, 2, 3, 4, 5].map((i) => (
-                    <IconSparkle 
-                      key={i} 
-                      delay={index * 0.3 + i * 0.25} 
-                      angle={i * 60 + index * 30} 
-                      distance={35 + (i % 2) * 10} 
-                    />
-                  ))}
-                  
-                  {/* Star burst sparkle */}
-                  <StarSparkle delay={index * 0.4 + 0.5} />
-                  
-                  {/* Spray effect for perfume */}
-                  {icon.hasSpray && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                      {sprayParticles.map((particle, i) => (
-                        <SprayParticle key={i} {...particle} />
-                      ))}
-                    </div>
-                  )}
-                  
-                  {/* Icon image */}
-                  <motion.img
-                    src={icon.src}
-                    alt={icon.alt}
-                    className="relative z-10 w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-lg"
-                    animate={{ 
-                      rotate: [0, icon.rotation[0], icon.rotation[1], 0],
-                      y: [0, -3, 0],
-                    }}
-                    transition={{ 
-                      duration: 3 + index * 0.3, 
-                      repeat: Infinity, 
-                      ease: 'easeInOut',
-                      delay: index * 0.15
-                    }}
-                  />
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Animated Logo/Text with Shimmer */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative text-center"
-            >
-              <motion.h1
-                className="text-4xl md:text-6xl font-heading text-primary relative"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-              >
-                Sunita
-                {/* Text shimmer effect */}
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+          {/* Spray bottle */}
+          <motion.div
+            className="absolute flex flex-col items-center"
+            style={{ top: '25%' }}
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ 
+              y: 0, 
+              opacity: showReveal ? 0 : 1,
+            }}
+            transition={{ 
+              y: { duration: 0.8, ease: 'easeOut' },
+              opacity: { duration: 0.5, delay: showReveal ? 0 : 0 }
+            }}
+          >
+            {/* Spray nozzle area - particles come from here */}
+            <div className="relative">
+              {/* Spray particles */}
+              {showSpray && sprayParticles.map((particle) => (
+                <SprayParticle
+                  key={particle.id}
+                  delay={particle.delay}
+                  x={particle.x}
+                  y={particle.y}
                 />
-              </motion.h1>
-              <motion.p
-                className="text-lg md:text-xl text-muted-foreground mt-2 font-body flex items-center justify-center gap-2"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-              >
-                <Sparkles className="w-4 h-4 text-primary" />
-                Makeup Artist
-                <Sparkles className="w-4 h-4 text-primary" />
-              </motion.p>
-            </motion.div>
+              ))}
+              
+              {/* Mist clouds */}
+              {showSpray && mistClouds.map((cloud) => (
+                <MistCloud
+                  key={cloud.id}
+                  delay={cloud.delay}
+                  size={cloud.size}
+                  x={cloud.x}
+                  y={cloud.y}
+                />
+              ))}
 
-            {/* Loading Dots with Sparkle */}
-            <motion.div
-              className="flex items-center gap-3 mt-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              {/* Spray bottle SVG */}
+              <motion.svg
+                width="80"
+                height="120"
+                viewBox="0 0 80 120"
+                className="relative z-10"
+                animate={showSpray ? {
+                  rotate: [0, -5, 5, -3, 0],
+                } : {}}
+                transition={{
+                  duration: 0.3,
+                  repeat: showSpray && !showReveal ? 3 : 0,
+                  repeatDelay: 0.5,
+                }}
+              >
+                {/* Bottle body */}
+                <defs>
+                  <linearGradient id="bottleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="hsl(var(--primary))" />
+                    <stop offset="50%" stopColor="hsl(var(--primary) / 0.8)" />
+                    <stop offset="100%" stopColor="hsl(var(--primary) / 0.6)" />
+                  </linearGradient>
+                  <linearGradient id="liquidGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="hsl(var(--primary) / 0.3)" />
+                    <stop offset="100%" stopColor="hsl(var(--primary) / 0.6)" />
+                  </linearGradient>
+                </defs>
+                
+                {/* Spray trigger */}
+                <rect x="50" y="15" width="20" height="12" rx="3" fill="hsl(var(--muted-foreground) / 0.6)" />
+                
+                {/* Nozzle */}
+                <rect x="30" y="5" width="20" height="8" rx="2" fill="hsl(var(--muted-foreground) / 0.8)" />
+                <circle cx="40" cy="5" r="3" fill="hsl(var(--muted-foreground))" />
+                
+                {/* Bottle neck */}
+                <rect x="30" y="13" width="20" height="20" rx="2" fill="hsl(var(--muted-foreground) / 0.7)" />
+                
+                {/* Bottle body */}
+                <path
+                  d="M 20 35 Q 15 40 15 50 L 15 100 Q 15 110 25 110 L 55 110 Q 65 110 65 100 L 65 50 Q 65 40 60 35 L 50 33 L 30 33 Z"
+                  fill="url(#bottleGradient)"
+                  stroke="hsl(var(--primary) / 0.3)"
+                  strokeWidth="1"
+                />
+                
+                {/* Liquid inside */}
+                <path
+                  d="M 20 60 Q 18 65 18 70 L 18 97 Q 18 107 28 107 L 52 107 Q 62 107 62 97 L 62 70 Q 62 65 60 60 Z"
+                  fill="url(#liquidGradient)"
+                  opacity="0.8"
+                />
+                
+                {/* Highlight */}
+                <ellipse cx="25" cy="70" rx="5" ry="15" fill="white" opacity="0.3" />
+              </motion.svg>
+            </div>
+          </motion.div>
+
+          {/* Name reveal */}
+          <motion.div
+            className="absolute flex flex-col items-center text-center z-20"
+            initial={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }}
+            animate={{ 
+              opacity: showReveal ? 1 : 0,
+              scale: showReveal ? 1 : 0.8,
+              filter: showReveal ? 'blur(0px)' : 'blur(20px)',
+            }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          >
+            {/* Decorative sparkles around name */}
+            {showReveal && (
+              <>
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute"
+                    style={{
+                      top: `${30 + Math.sin(i * 60 * Math.PI / 180) * 80}%`,
+                      left: `${50 + Math.cos(i * 60 * Math.PI / 180) * 120}px`,
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ 
+                      opacity: [0, 1, 0.5],
+                      scale: [0, 1.5, 1],
+                    }}
+                    transition={{ 
+                      duration: 1,
+                      delay: 0.2 + i * 0.1,
+                    }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <path
+                        d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10L12 0Z"
+                        fill="hsl(var(--primary))"
+                        opacity="0.8"
+                      />
+                    </svg>
+                  </motion.div>
+                ))}
+              </>
+            )}
+            
+            {/* Main title */}
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold tracking-wider"
+              style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.7) 50%, hsl(var(--primary)) 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0 0 40px hsl(var(--primary) / 0.3)',
+              }}
+              initial={{ y: 20 }}
+              animate={{ y: showReveal ? 0 : 20 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
+              Sunita
+            </motion.h1>
+            
+            {/* Subtitle */}
+            <motion.p
+              className="text-lg md:text-xl tracking-[0.3em] uppercase mt-2 text-muted-foreground"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ 
+                y: showReveal ? 0 : 20,
+                opacity: showReveal ? 1 : 0,
+              }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Makeup Artist
+            </motion.p>
+
+            {/* Decorative line */}
+            <motion.div
+              className="h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent mt-4"
+              initial={{ width: 0 }}
+              animate={{ width: showReveal ? 200 : 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+            />
+          </motion.div>
+
+          {/* Loading indicator */}
+          <motion.div
+            className="absolute bottom-12 flex items-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showReveal ? 0 : 0.7 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-sm text-muted-foreground tracking-widest uppercase">Loading</span>
+            <div className="flex gap-1">
               {[0, 1, 2].map((i) => (
                 <motion.div
                   key={i}
-                  className="w-3 h-3 rounded-full bg-primary"
+                  className="w-1.5 h-1.5 rounded-full bg-primary"
                   animate={{
-                    scale: [1, 1.5, 1],
+                    y: [0, -8, 0],
                     opacity: [0.5, 1, 0.5],
-                    boxShadow: [
-                      '0 0 0 0 hsl(var(--primary) / 0)',
-                      '0 0 20px 5px hsl(var(--primary) / 0.5)',
-                      '0 0 0 0 hsl(var(--primary) / 0)',
-                    ],
                   }}
                   transition={{
-                    duration: 1,
+                    duration: 0.8,
                     repeat: Infinity,
-                    delay: i * 0.2,
-                    ease: 'easeInOut',
+                    delay: i * 0.15,
                   }}
                 />
               ))}
-            </motion.div>
-
-            {/* Loading Text */}
-            <motion.p
-              className="text-sm text-muted-foreground"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-            >
-              <motion.span
-                animate={{ opacity: [1, 0.5, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                ✨ Loading beauty... ✨
-              </motion.span>
-            </motion.p>
-          </div>
+            </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
