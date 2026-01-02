@@ -261,6 +261,92 @@ const Preloader = () => {
                   />
                 </motion.svg>
               </motion.div>
+
+              {/* Compact Mirror Icon with Flip Animation */}
+              <motion.div
+                initial={{ scale: 0, rotateY: 180 }}
+                animate={{ scale: 1, rotateY: 0 }}
+                transition={{ duration: 0.8, type: 'spring', delay: 0.6 }}
+                className="relative"
+                style={{ perspective: '500px' }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                />
+                <motion.div
+                  className="relative z-10"
+                  animate={{ rotateY: [0, 180, 360] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  <motion.svg
+                    width="60"
+                    height="60"
+                    viewBox="0 0 64 64"
+                  >
+                    {/* Compact case outer */}
+                    <motion.rect
+                      x="8"
+                      y="12"
+                      width="48"
+                      height="40"
+                      rx="6"
+                      fill="hsl(var(--foreground) / 0.1)"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="2"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
+                    />
+                    {/* Mirror surface */}
+                    <motion.rect
+                      x="12"
+                      y="16"
+                      width="40"
+                      height="32"
+                      rx="4"
+                      fill="hsl(var(--primary) / 0.1)"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.4, delay: 0.9 }}
+                    />
+                    {/* Mirror shine effect */}
+                    <motion.ellipse
+                      cx="22"
+                      cy="26"
+                      rx="8"
+                      ry="5"
+                      fill="hsl(var(--primary) / 0.4)"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0.2, 0.6, 0.2] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                    />
+                    {/* Secondary shine */}
+                    <motion.ellipse
+                      cx="40"
+                      cy="36"
+                      rx="5"
+                      ry="3"
+                      fill="hsl(var(--primary) / 0.3)"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0.1, 0.4, 0.1] }}
+                      transition={{ duration: 2.5, repeat: Infinity, delay: 1.2 }}
+                    />
+                    {/* Decorative clasp */}
+                    <motion.circle
+                      cx="32"
+                      cy="52"
+                      r="3"
+                      fill="hsl(var(--primary))"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity, delay: 1.1 }}
+                    />
+                  </motion.svg>
+                </motion.div>
+              </motion.div>
             </div>
 
             {/* Animated Logo/Text with Shimmer */}
