@@ -1,7 +1,14 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Sparkles } from 'lucide-react';
-import { GiLipstick, GiPerfumeBottle, GiMirrorMirror, GiPaintBrush } from 'react-icons/gi';
+
+// Import 3D realistic icons
+import lipstickIcon from '@/assets/icons/lipstick-3d.png';
+import perfumeIcon from '@/assets/icons/perfume-3d.png';
+import mascaraIcon from '@/assets/icons/mascara-3d.png';
+import brushIcon from '@/assets/icons/brush-3d.png';
+import mirrorIcon from '@/assets/icons/mirror-3d.png';
+import eyeshadowIcon from '@/assets/icons/eyeshadow-3d.png';
 
 // Sparkle component for floating particles
 const SparkleParticle = ({ delay, x, y }: { delay: number; x: number; y: number }) => (
@@ -28,25 +35,23 @@ const SparkleParticle = ({ delay, x, y }: { delay: number; x: number; y: number 
 // Spray particle component for perfume
 const SprayParticle = ({ delay, angle }: { delay: number; angle: number }) => {
   const radians = (angle * Math.PI) / 180;
-  const distance = 25 + Math.random() * 15;
+  const distance = 30 + Math.random() * 20;
   const endX = Math.cos(radians) * distance;
   const endY = Math.sin(radians) * distance;
   
   return (
-    <motion.circle
-      cx="32"
-      cy="10"
-      r="1.5"
-      fill="hsl(var(--primary) / 0.6)"
+    <motion.div
+      className="absolute w-1.5 h-1.5 rounded-full bg-primary/40"
+      style={{ left: '50%', top: '0' }}
       initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
       animate={{
         opacity: [0, 0.8, 0],
         x: [0, endX * 0.5, endX],
         y: [0, endY * 0.5, endY],
-        scale: [0, 1, 0.5],
+        scale: [0, 1, 0.3],
       }}
       transition={{
-        duration: 1.2,
+        duration: 1.5,
         repeat: Infinity,
         delay,
         ease: 'easeOut',
@@ -81,7 +86,20 @@ const Preloader = () => {
   ];
 
   // Generate spray particles with different angles
-  const sprayAngles = [-60, -45, -30, -15, 0, 15, 30, 45, 60];
+  const sprayParticles = Array.from({ length: 12 }, (_, i) => ({
+    delay: i * 0.12,
+    angle: -120 + (i * 5) + Math.random() * 10,
+  }));
+
+  // Icon data for mapping
+  const makeupIcons = [
+    { src: brushIcon, alt: 'Makeup Brush', delay: 0.2, rotation: [-8, 8] },
+    { src: lipstickIcon, alt: 'Lipstick', delay: 0, rotation: [-5, 5] },
+    { src: mirrorIcon, alt: 'Mirror', delay: 0.4, rotation: [-6, 6] },
+    { src: perfumeIcon, alt: 'Perfume', delay: 0.6, rotation: [-3, 3], hasSpray: true },
+    { src: eyeshadowIcon, alt: 'Eyeshadow Palette', delay: 0.8, rotation: [-4, 4] },
+    { src: mascaraIcon, alt: 'Mascara', delay: 1, rotation: [-10, 10] },
+  ];
 
   return (
     <AnimatePresence>
@@ -112,307 +130,62 @@ const Preloader = () => {
 
           <div className="flex flex-col items-center gap-6 relative z-10">
             {/* Makeup Icons Row */}
-            <div className="flex items-center gap-6 flex-wrap justify-center max-w-lg">
-              {/* Paint Brush Icon (react-icons) */}
-              <motion.div
-                initial={{ scale: 0, rotate: -45 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, type: 'spring', delay: 0.2 }}
-                className="relative"
-              >
+            <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-center max-w-xl px-4">
+              {makeupIcons.map((icon, index) => (
                 <motion.div
-                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <motion.div
-                  className="relative z-10 text-primary"
-                  animate={{ rotate: [0, 8, -8, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                >
-                  <GiPaintBrush size={56} />
-                </motion.div>
-              </motion.div>
-
-              {/* Lipstick Icon (react-icons) */}
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, type: 'spring' }}
-                className="relative"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-primary/30 rounded-full blur-xl"
-                  animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <motion.div
-                  className="relative z-10 text-primary"
-                  animate={{ rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <GiLipstick size={64} />
-                </motion.div>
-              </motion.div>
-
-              {/* Mirror Icon (react-icons) */}
-              <motion.div
-                initial={{ scale: 0, rotate: 45 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, type: 'spring', delay: 0.4 }}
-                className="relative"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
-                />
-                <motion.div
-                  className="relative z-10 text-primary"
-                  animate={{ rotate: [0, -5, 5, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                >
-                  <GiMirrorMirror size={56} />
-                </motion.div>
-              </motion.div>
-
-              {/* Perfume Bottle Icon with Spray Animation (react-icons) */}
-              <motion.div
-                initial={{ scale: 0, y: 20 }}
-                animate={{ scale: 1, y: 0 }}
-                transition={{ duration: 0.8, type: 'spring', delay: 0.6 }}
-                className="relative"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                />
-                {/* Spray mist particles */}
-                <motion.svg
-                  width="64"
-                  height="64"
-                  viewBox="0 0 64 64"
-                  className="absolute -top-6 left-0 z-20"
-                >
-                  {sprayAngles.map((angle, i) => (
-                    <SprayParticle key={i} delay={i * 0.15} angle={angle - 90} />
-                  ))}
-                </motion.svg>
-                <motion.div
-                  className="relative z-10 text-primary"
-                  animate={{ 
-                    scale: [1, 1.02, 1],
-                  }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <GiPerfumeBottle size={56} />
-                </motion.div>
-              </motion.div>
-
-              {/* Eyeshadow Palette Icon (custom SVG - no react-icon available) */}
-              <motion.div
-                initial={{ scale: 0, rotate: -30 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, type: 'spring', delay: 0.8 }}
-                className="relative"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
-                />
-                <motion.svg
-                  width="60"
-                  height="50"
-                  viewBox="0 0 80 64"
-                  className="relative z-10"
-                  animate={{ rotate: [0, 3, -3, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                >
-                  {/* Palette case */}
-                  <motion.rect
-                    x="4"
-                    y="8"
-                    width="72"
-                    height="48"
-                    rx="8"
-                    fill="hsl(var(--foreground) / 0.1)"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.9 }}
-                  />
-                  
-                  {/* Eyeshadow pans with color-changing animation */}
-                  {[
-                    { cx: 22, cy: 24, colors: ['hsl(330, 80%, 60%)', 'hsl(350, 85%, 65%)', 'hsl(320, 75%, 55%)'] },
-                    { cx: 42, cy: 24, colors: ['hsl(45, 90%, 55%)', 'hsl(35, 85%, 50%)', 'hsl(50, 95%, 60%)'] },
-                    { cx: 62, cy: 24, colors: ['hsl(280, 70%, 55%)', 'hsl(260, 75%, 50%)', 'hsl(300, 65%, 60%)'] },
-                    { cx: 22, cy: 44, colors: ['hsl(25, 60%, 40%)', 'hsl(20, 55%, 35%)', 'hsl(30, 65%, 45%)'] },
-                    { cx: 42, cy: 44, colors: ['hsl(180, 70%, 45%)', 'hsl(170, 65%, 40%)', 'hsl(190, 75%, 50%)'] },
-                    { cx: 62, cy: 44, colors: ['hsl(10, 70%, 65%)', 'hsl(15, 75%, 60%)', 'hsl(5, 65%, 70%)'] },
-                  ].map((pan, i) => (
-                    <motion.circle
-                      key={i}
-                      cx={pan.cx}
-                      cy={pan.cy}
-                      r="8"
-                      initial={{ scale: 0 }}
-                      animate={{ 
-                        scale: 1,
-                        fill: [...pan.colors, pan.colors[0]]
-                      }}
-                      transition={{ 
-                        scale: { duration: 0.3, delay: 1 + i * 0.1 },
-                        fill: { duration: 3 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }
-                      }}
-                    />
-                  ))}
-                  
-                  {/* Shimmer highlights */}
-                  {[
-                    { cx: 19, cy: 21 }, { cx: 39, cy: 21 }, { cx: 59, cy: 21 },
-                    { cx: 19, cy: 41 }, { cx: 39, cy: 41 }, { cx: 59, cy: 41 },
-                  ].map((pos, i) => (
-                    <motion.ellipse
-                      key={i}
-                      cx={pos.cx}
-                      cy={pos.cy}
-                      rx="3"
-                      ry="2"
-                      fill="white"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0.3, 0.7, 0.3] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
-                    />
-                  ))}
-                </motion.svg>
-              </motion.div>
-
-              {/* Mascara Wand Icon (custom SVG - no react-icon available) */}
-              <motion.div
-                initial={{ scale: 0, rotate: 30 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, type: 'spring', delay: 1 }}
-                className="relative"
-              >
-                <motion.div
-                  className="absolute inset-0 bg-primary/20 rounded-full blur-lg"
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
-                />
-                <motion.svg
-                  width="50"
-                  height="50"
-                  viewBox="0 0 64 64"
-                  className="relative z-10"
-                  animate={{ 
-                    rotate: [0, 15, -15, 10, -10, 0],
-                    y: [0, -2, 2, -1, 1, 0]
-                  }}
+                  key={icon.alt}
+                  initial={{ scale: 0, y: 30, opacity: 0 }}
+                  animate={{ scale: 1, y: 0, opacity: 1 }}
                   transition={{ 
-                    duration: 2.5, 
-                    repeat: Infinity, 
-                    ease: 'easeInOut',
-                    delay: 1.2 
+                    duration: 0.6, 
+                    type: 'spring', 
+                    delay: icon.delay,
+                    stiffness: 200 
                   }}
+                  className="relative"
                 >
-                  {/* Mascara wand handle */}
-                  <motion.rect
-                    x="29"
-                    y="32"
-                    width="6"
-                    height="26"
-                    rx="2"
-                    fill="hsl(var(--foreground) / 0.1)"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.5, delay: 1.1 }}
+                  {/* Glow effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-primary/20 rounded-full blur-xl"
+                    animate={{ 
+                      scale: [1, 1.3, 1], 
+                      opacity: [0.3, 0.6, 0.3] 
+                    }}
+                    transition={{ 
+                      duration: 2, 
+                      repeat: Infinity, 
+                      ease: 'easeInOut',
+                      delay: index * 0.2 
+                    }}
                   />
                   
-                  {/* Mascara brush base */}
-                  <motion.ellipse
-                    cx="32"
-                    cy="16"
-                    rx="6"
-                    ry="12"
-                    fill="hsl(var(--primary))"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.3 }}
+                  {/* Spray effect for perfume */}
+                  {icon.hasSpray && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+                      {sprayParticles.map((particle, i) => (
+                        <SprayParticle key={i} {...particle} />
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Icon image */}
+                  <motion.img
+                    src={icon.src}
+                    alt={icon.alt}
+                    className="relative z-10 w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-lg"
+                    animate={{ 
+                      rotate: [0, icon.rotation[0], icon.rotation[1], 0],
+                      y: [0, -3, 0],
+                    }}
+                    transition={{ 
+                      duration: 3 + index * 0.3, 
+                      repeat: Infinity, 
+                      ease: 'easeInOut',
+                      delay: index * 0.15
+                    }}
                   />
-                  
-                  {/* Brush bristles - left side */}
-                  {[0, 1, 2, 3, 4, 5].map((i) => (
-                    <motion.line
-                      key={`left-${i}`}
-                      x1="26"
-                      y1={8 + i * 3}
-                      x2="22"
-                      y2={7 + i * 3}
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ 
-                        pathLength: 1, 
-                        opacity: 1,
-                        x1: [26, 25, 26],
-                        x2: [22, 20, 22]
-                      }}
-                      transition={{ 
-                        pathLength: { duration: 0.3, delay: 1.4 + i * 0.05 },
-                        opacity: { duration: 0.2, delay: 1.4 + i * 0.05 },
-                        x1: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 },
-                        x2: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 }
-                      }}
-                    />
-                  ))}
-                  
-                  {/* Brush bristles - right side */}
-                  {[0, 1, 2, 3, 4, 5].map((i) => (
-                    <motion.line
-                      key={`right-${i}`}
-                      x1="38"
-                      y1={8 + i * 3}
-                      x2="42"
-                      y2={7 + i * 3}
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ 
-                        pathLength: 1, 
-                        opacity: 1,
-                        x1: [38, 39, 38],
-                        x2: [42, 44, 42]
-                      }}
-                      transition={{ 
-                        pathLength: { duration: 0.3, delay: 1.4 + i * 0.05 },
-                        opacity: { duration: 0.2, delay: 1.4 + i * 0.05 },
-                        x1: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 + 0.5 },
-                        x2: { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 + 0.5 }
-                      }}
-                    />
-                  ))}
-                  
-                  {/* Brush shine */}
-                  <motion.ellipse
-                    cx="30"
-                    cy="12"
-                    rx="2"
-                    ry="5"
-                    fill="hsl(var(--primary) / 0.4)"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0.3, 0.7, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
-                  />
-                </motion.svg>
-              </motion.div>
+                </motion.div>
+              ))}
             </div>
 
             {/* Animated Logo/Text with Shimmer */}
