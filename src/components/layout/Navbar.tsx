@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -139,13 +139,22 @@ export function Navbar() {
                   </motion.a>
                 ))}
                 <div className="section-divider my-4" />
-                <div className="flex gap-4">
+                <div className="flex gap-4 items-center">
+                  <a
+                    href="https://instagram.com/makeoveranushka"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-secondary rounded-full text-foreground hover:text-primary transition-colors"
+                  >
+                    <Instagram className="w-5 h-5" />
+                  </a>
                   <a
                     href="tel:+917976008850"
                     className="p-3 bg-secondary rounded-full text-foreground hover:text-primary transition-colors"
                   >
                     <Phone className="w-5 h-5" />
                   </a>
+                  <ThemeToggle />
                 </div>
                 <Button
                   onClick={() => scrollToSection('#contact')}
