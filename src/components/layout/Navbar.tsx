@@ -81,6 +81,7 @@ export function Navbar() {
 
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-4">
+              <ThemeToggle />
               <Button
                 onClick={() => scrollToSection('#contact')}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
