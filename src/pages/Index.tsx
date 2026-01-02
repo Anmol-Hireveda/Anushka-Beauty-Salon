@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { CircularGallery } from '@/components/sections/CircularGallery';
@@ -14,7 +15,12 @@ const Index = () => {
   return (
     <>
       <CursorGlitter />
-      <main className="min-h-screen bg-background">
+      <motion.main 
+        className="min-h-screen bg-background"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <Navbar />
         <HeroSection />
         <CircularGallery />
@@ -25,7 +31,7 @@ const Index = () => {
         <ContactSection />
         <Footer />
         <FloatingWhatsApp />
-      </main>
+      </motion.main>
     </>
   );
 };
