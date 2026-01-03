@@ -45,9 +45,9 @@ function ImageCard({
   const startPos = startPositions[index];
   const baseAngle = (360 / totalImages) * index;
 
-  // Each image appears at different scroll points (tuned to avoid long blank area)
-  const imageStart = 0.0 + (index * 0.03);
-  const imageEnd = imageStart + 0.18;
+  // Each image appears at different scroll points
+  const imageStart = 0.05 + (index * 0.04);
+  const imageEnd = imageStart + 0.15;
 
   // Animate from start position to circle position
   const progress = useTransform(scrollYProgress, [imageStart, imageEnd], [0, 1]);
@@ -114,19 +114,19 @@ export function CircularGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end start'],
+    offset: ['start end', 'end start'],
   });
 
   const totalImages = images.length;
   const radius = 300;
 
-  // Rotation starts after images assemble (tighter so no blank gap)
-  const rotationProgress = useTransform(scrollYProgress, [0.28, 1], [0, 720]);
+  // Rotation starts after images assemble (0.5 onwards)
+  const rotationProgress = useTransform(scrollYProgress, [0.45, 1], [0, 720]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-[180vh] md:h-[200vh] bg-background"
+      className="relative h-[300vh] bg-background"
     >
       {/* Sticky container */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -144,7 +144,7 @@ export function CircularGallery() {
           className="text-center z-20 mb-4"
         >
           <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4">
-            Our <span className="text-gradient-gold">Artistry</span>
+            Our <span className="text-primary">Artistry</span>
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto">
             Beautiful transformations crafted with love
