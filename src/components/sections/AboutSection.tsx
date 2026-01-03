@@ -48,7 +48,7 @@ export function AboutSection() {
     <section 
       id="about" 
       ref={sectionRef}
-      className="py-24 lg:py-32 bg-gradient-elegant relative overflow-hidden"
+      className="py-24 lg:py-32 bg-background relative overflow-hidden"
     >
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
