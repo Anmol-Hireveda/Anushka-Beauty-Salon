@@ -144,7 +144,7 @@ export function CircularGallery() {
           className="text-center z-20 mb-4"
         >
           <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4">
-            Our <span className="text-primary">Artistry</span>
+            Our <span className="text-gradient-gold">Artistry</span>
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto">
             Beautiful transformations crafted with love
