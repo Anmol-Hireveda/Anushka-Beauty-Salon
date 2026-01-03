@@ -392,69 +392,89 @@ export function ReviewsSection() {
           </Dialog>
         </motion.div>
 
-        {/* Reviews Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {reviews.slice(0, 4).map((review, index) => (
-            <motion.div
-              key={review.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 * index }}
-              className="group"
-            >
-              <div className="h-full p-6 bg-card border border-border hover:border-primary/30 transition-all duration-400 relative">
-                {/* Quote icon */}
-                <Quote className="w-8 h-8 text-primary/20 mb-4" />
+        {/* Reviews Marquee */}
+        <div className="relative overflow-hidden">
+          {/* Gradient overlays for smooth edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+          
+          <motion.div
+            className="flex gap-6"
+            animate={reviews.length > 4 ? {
+              x: [0, -(reviews.length * 320)],
+            } : {}}
+            transition={reviews.length > 4 ? {
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: reviews.length * 5,
+                ease: "linear",
+              },
+            } : {}}
+          >
+            {/* Duplicate reviews for seamless loop */}
+            {[...reviews, ...(reviews.length > 4 ? reviews : [])].map((review, index) => (
+              <motion.div
+                key={`${review.id}-${index}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.1 * (index % 4) }}
+                className="group flex-shrink-0 w-[300px]"
+              >
+                <div className="h-full p-6 bg-card border border-border hover:border-primary/30 transition-all duration-400 relative">
+                  {/* Quote icon */}
+                  <Quote className="w-8 h-8 text-primary/20 mb-4" />
 
-                {/* Rating */}
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-4 h-4 ${
-                        i < review.rating ? 'text-primary fill-primary' : 'text-muted'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* Review text */}
-                <p className="text-foreground/80 text-sm leading-relaxed mb-6 line-clamp-4">
-                  "{review.review_text}"
-                </p>
-
-                {/* Client info */}
-                <div className="flex items-center gap-3 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
-                    {review.profile_image_url ? (
-                      <img 
-                        src={review.profile_image_url} 
-                        alt={review.client_name}
-                        className="w-full h-full object-cover"
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < review.rating ? 'text-primary fill-primary' : 'text-muted'
+                        }`}
                       />
-                    ) : (
-                      <span className="text-primary font-heading text-lg font-semibold">
-                        {review.client_name.charAt(0)}
-                      </span>
-                    )}
+                    ))}
                   </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-foreground">
-                      {review.client_name}
-                    </h4>
-                    {review.service_type && (
-                      <p className="text-xs text-primary uppercase tracking-wider">
-                        {review.service_type}
-                      </p>
-                    )}
-                  </div>
-                </div>
 
-                {/* Hover accent */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
-              </div>
-            </motion.div>
-          ))}
+                  {/* Review text */}
+                  <p className="text-foreground/80 text-sm leading-relaxed mb-6 line-clamp-4">
+                    "{review.review_text}"
+                  </p>
+
+                  {/* Client info */}
+                  <div className="flex items-center gap-3 mt-auto">
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+                      {review.profile_image_url ? (
+                        <img 
+                          src={review.profile_image_url} 
+                          alt={review.client_name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-primary font-heading text-lg font-semibold">
+                          {review.client_name.charAt(0)}
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <h4 className="font-heading font-semibold text-foreground">
+                        {review.client_name}
+                      </h4>
+                      {review.service_type && (
+                        <p className="text-xs text-primary uppercase tracking-wider">
+                          {review.service_type}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Hover accent */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
 
         {/* Stats */}
