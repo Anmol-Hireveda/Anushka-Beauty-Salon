@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Star, Quote, Send } from 'lucide-react';
+import { Star, Quote, Send, Camera, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -34,6 +34,7 @@ interface Review {
   review_text: string;
   service_type: string | null;
   created_at: string;
+  profile_image_url?: string | null;
 }
 
 // Fallback static reviews
@@ -84,6 +85,8 @@ export function ReviewsSection() {
   const [reviews, setReviews] = useState<Review[]>(staticReviews);
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     client_name: '',
     email: '',
@@ -132,9 +135,60 @@ export function ReviewsSection() {
     };
   }, []);
 
+  // Handle image selection
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Please select an image under 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    let profileImageUrl: string | null = null;
+
+    // Upload image if selected
+    if (selectedImage) {
+      const fileExt = selectedImage.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('review-photos')
+        .upload(fileName, selectedImage);
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        toast({
+          title: "Error",
+          description: "Could not upload image. Please try again.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('review-photos')
+        .getPublicUrl(fileName);
+      
+      profileImageUrl = urlData.publicUrl;
+    }
 
     // Determine final service type
     const finalServiceType = formData.service_type === 'Other' 
@@ -147,6 +201,7 @@ export function ReviewsSection() {
       review_text: formData.review_text.trim(),
       rating: formData.rating,
       service_type: finalServiceType || 'Beauty Service',
+      profile_image_url: profileImageUrl,
     });
 
     if (error) {
@@ -161,6 +216,8 @@ export function ReviewsSection() {
         description: "Your review has been submitted successfully.",
       });
       setFormData({ client_name: '', email: '', review_text: '', rating: 0, service_type: '', custom_service: '' });
+      setSelectedImage(null);
+      setImagePreview(null);
       setIsOpen(false);
     }
 
@@ -208,11 +265,41 @@ export function ReviewsSection() {
                 Write a Review
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle className="font-heading text-2xl">Share Your Experience</DialogTitle>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                {/* Profile Photo Upload */}
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Your Photo (Optional)</label>
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-20 h-20 rounded-full overflow-hidden bg-muted border-2 border-dashed border-border flex items-center justify-center">
+                      {imagePreview ? (
+                        <img 
+                          src={imagePreview} 
+                          alt="Preview" 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <User className="w-8 h-8 text-muted-foreground" />
+                      )}
+                    </div>
+                    <label className="cursor-pointer">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="hidden"
+                      />
+                      <div className="flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors">
+                        <Camera className="w-4 h-4" />
+                        <span className="text-sm">{imagePreview ? 'Change Photo' : 'Upload Photo'}</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Your Name</label>
                   <Input
@@ -338,10 +425,18 @@ export function ReviewsSection() {
 
                 {/* Client info */}
                 <div className="flex items-center gap-3 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="text-primary font-heading text-lg font-semibold">
-                      {review.client_name.charAt(0)}
-                    </span>
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+                    {review.profile_image_url ? (
+                      <img 
+                        src={review.profile_image_url} 
+                        alt={review.client_name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-primary font-heading text-lg font-semibold">
+                        {review.client_name.charAt(0)}
+                      </span>
+                    )}
                   </div>
                   <div>
                     <h4 className="font-heading font-semibold text-foreground">

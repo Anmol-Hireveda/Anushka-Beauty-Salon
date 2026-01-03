@@ -20,6 +20,7 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          profile_image_url: string | null
           rating: number
           review_text: string
           service_type: string | null
@@ -29,6 +30,7 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          profile_image_url?: string | null
           rating?: number
           review_text: string
           service_type?: string | null
@@ -38,6 +40,7 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          profile_image_url?: string | null
           rating?: number
           review_text?: string
           service_type?: string | null
