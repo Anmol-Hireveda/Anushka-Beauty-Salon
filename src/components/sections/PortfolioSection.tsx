@@ -270,13 +270,13 @@ export function PortfolioSection() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="relative max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl"
+              className="relative flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={selectedImage}
                 alt="Portfolio"
-                className="w-full h-full object-contain"
+                className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain rounded-2xl shadow-2xl"
               />
               
               {/* Image counter */}
