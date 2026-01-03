@@ -70,30 +70,31 @@
   }
 
   .light {
-    --background: 270 30% 98%;
-    --foreground: 270 25% 15%;
+    /* Sky Blue Light Theme */
+    --background: 200 40% 98%;
+    --foreground: 200 30% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 270 25% 15%;
+    --card-foreground: 200 30% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 270 25% 15%;
+    --popover-foreground: 200 30% 15%;
 
-    --primary: 270 55% 55%;
+    --primary: 200 80% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 270 25% 92%;
-    --secondary-foreground: 270 25% 15%;
+    --secondary: 200 30% 92%;
+    --secondary-foreground: 200 30% 15%;
 
-    --muted: 270 20% 92%;
-    --muted-foreground: 270 15% 40%;
+    --muted: 200 25% 92%;
+    --muted-foreground: 200 20% 40%;
 
-    --accent: 330 55% 50%;
+    --accent: 190 70% 45%;
     --accent-foreground: 0 0% 100%;
 
-    --border: 270 20% 88%;
-    --input: 270 20% 92%;
-    --ring: 270 55% 55%;
+    --border: 200 25% 88%;
+    --input: 200 25% 92%;
+    --ring: 200 80% 50%;
   }
 }
 
