@@ -38,9 +38,11 @@ export function HeroSection() {
         </video>
         
         {/* Overlays for readability */}
-        <div className="absolute inset-0 bg-background/60" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
+        <div className="absolute inset-0 bg-background/60 dark:bg-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background dark:from-background/50 dark:to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40 dark:from-background/40 dark:to-background/40" />
+        {/* Light theme pink gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(350,100%,95%)]/80 via-[hsl(340,80%,97%)]/60 to-[hsl(320,60%,95%)]/80 dark:hidden" />
       </div>
 
       {/* Decorative elements */}
