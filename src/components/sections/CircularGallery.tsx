@@ -45,9 +45,9 @@ function ImageCard({
   const startPos = startPositions[index];
   const baseAngle = (360 / totalImages) * index;
 
-  // Each image appears at different scroll points
-  const imageStart = 0.05 + (index * 0.04);
-  const imageEnd = imageStart + 0.15;
+  // Each image appears at different scroll points (tuned to avoid long blank area)
+  const imageStart = 0.0 + (index * 0.03);
+  const imageEnd = imageStart + 0.18;
 
   // Animate from start position to circle position
   const progress = useTransform(scrollYProgress, [imageStart, imageEnd], [0, 1]);
@@ -120,13 +120,13 @@ export function CircularGallery() {
   const totalImages = images.length;
   const radius = 300;
 
-  // Rotation starts after images assemble (0.5 onwards)
-  const rotationProgress = useTransform(scrollYProgress, [0.45, 1], [0, 720]);
+  // Rotation starts after images assemble
+  const rotationProgress = useTransform(scrollYProgress, [0.35, 1], [0, 720]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-[300vh] bg-background"
+      className="relative h-[220vh] md:h-[240vh] bg-background"
     >
       {/* Sticky container */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
