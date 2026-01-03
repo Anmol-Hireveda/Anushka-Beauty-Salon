@@ -139,11 +139,6 @@ function CategoryCard({ category, onClick }: CategoryCardProps) {
         />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
-        
-        {/* Price badge */}
-        <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-primary/90 text-primary-foreground text-xs font-semibold backdrop-blur-sm">
-          {category.price}
-        </div>
       </div>
       
       {/* Content */}
@@ -183,11 +178,6 @@ function SalonCard({ service, onClick }: SalonCardProps) {
         />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent" />
-        
-        {/* Price badge */}
-        <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-accent/90 text-accent-foreground text-xs font-semibold backdrop-blur-sm">
-          {service.price}
-        </div>
       </div>
       
       {/* Content */}
@@ -237,7 +227,6 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
         </div>
 
         <div className="p-4 space-y-4">
-          <div className="text-primary font-semibold text-lg">{category.price}</div>
           
           <div className="grid grid-cols-2 gap-3">
             {category.styles.map((style) => (
@@ -388,7 +377,6 @@ export function ServicesSection() {
           </div>
 
           <div className="p-4 space-y-4">
-            <div className="text-primary font-semibold text-lg">{selectedSalon?.price}</div>
             
             <div className="grid grid-cols-2 gap-3">
               {selectedSalon?.options.map((option) => (
