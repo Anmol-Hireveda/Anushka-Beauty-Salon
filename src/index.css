@@ -7,66 +7,66 @@
 
 @layer base {
   :root {
-    /* Dark lavender theme as default */
-    --background: 270 20% 8%;
-    --foreground: 270 30% 96%;
+    /* Soft dark lavender theme - elegant and feminine */
+    --background: 270 15% 14%;
+    --foreground: 270 25% 95%;
 
-    --card: 270 20% 12%;
-    --card-foreground: 270 30% 96%;
+    --card: 270 18% 18%;
+    --card-foreground: 270 25% 95%;
 
-    --popover: 270 20% 12%;
-    --popover-foreground: 270 30% 96%;
+    --popover: 270 18% 18%;
+    --popover-foreground: 270 25% 95%;
 
-    /* Lavender purple accent */
-    --primary: 270 60% 65%;
-    --primary-foreground: 270 20% 8%;
+    /* Soft lavender purple accent */
+    --primary: 270 50% 70%;
+    --primary-foreground: 270 25% 12%;
 
-    --secondary: 270 15% 18%;
-    --secondary-foreground: 270 30% 96%;
+    --secondary: 270 20% 24%;
+    --secondary-foreground: 270 25% 95%;
 
-    --muted: 270 15% 20%;
-    --muted-foreground: 270 15% 65%;
+    --muted: 270 15% 28%;
+    --muted-foreground: 270 20% 70%;
 
-    /* Rose pink accent */
-    --accent: 330 60% 55%;
-    --accent-foreground: 270 30% 96%;
+    /* Soft rose pink accent */
+    --accent: 330 50% 65%;
+    --accent-foreground: 270 25% 12%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 270 15% 25%;
-    --input: 270 15% 18%;
-    --ring: 270 60% 65%;
+    --border: 270 20% 30%;
+    --input: 270 18% 22%;
+    --ring: 270 50% 70%;
 
     --radius: 0.5rem;
 
-    /* Custom colors */
-    --lavender: 270 60% 65%;
-    --lavender-light: 270 70% 75%;
-    --lavender-dark: 270 55% 50%;
-    --rose: 330 60% 55%;
-    --rose-light: 330 55% 65%;
-    --soft-white: 270 30% 96%;
-    --deep-purple: 270 25% 15%;
-    --deep-purple-light: 270 20% 22%;
+    /* Custom colors - softer palette */
+    --lavender: 270 50% 70%;
+    --lavender-light: 270 55% 80%;
+    --lavender-dark: 270 45% 58%;
+    --rose: 330 50% 65%;
+    --rose-light: 330 45% 75%;
+    --soft-white: 270 25% 95%;
+    --deep-purple: 270 22% 20%;
+    --deep-purple-light: 270 18% 28%;
 
     /* Typography */
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Montserrat', sans-serif;
 
-    /* Shadows */
-    --shadow-lavender: 0 4px 30px hsla(270, 60%, 65%, 0.25);
-    --shadow-elegant: 0 10px 40px hsla(270, 30%, 5%, 0.5);
+    /* Shadows - softer for dark theme */
+    --shadow-lavender: 0 4px 30px hsla(270, 50%, 70%, 0.2);
+    --shadow-elegant: 0 10px 40px hsla(270, 25%, 8%, 0.4);
 
     /* Sidebar (keeping for compatibility) */
-    --sidebar-background: 270 20% 10%;
-    --sidebar-foreground: 270 30% 96%;
-    --sidebar-primary: 270 60% 65%;
-    --sidebar-primary-foreground: 270 20% 8%;
-    --sidebar-accent: 270 15% 20%;
-    --sidebar-accent-foreground: 270 30% 96%;
-    --sidebar-border: 270 15% 25%;
-    --sidebar-ring: 270 60% 65%;
+    --sidebar-background: 270 18% 16%;
+    --sidebar-foreground: 270 25% 95%;
+    --sidebar-primary: 270 50% 70%;
+    --sidebar-primary-foreground: 270 25% 12%;
+    --sidebar-accent: 270 18% 24%;
+    --sidebar-accent-foreground: 270 25% 95%;
+    --sidebar-border: 270 20% 30%;
+    --sidebar-ring: 270 50% 70%;
   }
 
   .light {
