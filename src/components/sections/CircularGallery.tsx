@@ -114,19 +114,19 @@ export function CircularGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end start'],
   });
 
   const totalImages = images.length;
   const radius = 300;
 
-  // Rotation starts after images assemble
-  const rotationProgress = useTransform(scrollYProgress, [0.35, 1], [0, 720]);
+  // Rotation starts after images assemble (tighter so no blank gap)
+  const rotationProgress = useTransform(scrollYProgress, [0.28, 1], [0, 720]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-[220vh] md:h-[240vh] bg-background"
+      className="relative h-[180vh] md:h-[200vh] bg-background"
     >
       {/* Sticky container */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
