@@ -105,7 +105,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-gradient-elegant relative">
+    <section id="contact" className="py-24 lg:py-32 bg-background relative">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="container mx-auto px-4" ref={ref}>
