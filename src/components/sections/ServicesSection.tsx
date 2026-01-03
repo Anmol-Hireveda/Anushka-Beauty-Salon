@@ -10,6 +10,23 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 
+// Import images
+import everydayMakeup from '@/assets/services/everyday-makeup.jpg';
+import partyMakeup from '@/assets/services/party-makeup.jpg';
+import occasionMakeup from '@/assets/services/occasion-makeup.jpg';
+import professionalMakeup from '@/assets/services/professional-makeup.jpg';
+import openHair from '@/assets/services/open-hair.jpg';
+import updoBun from '@/assets/services/updo-bun.jpg';
+import braidedHair from '@/assets/services/braided-hair.jpg';
+import ponytail from '@/assets/services/ponytail.jpg';
+import facial from '@/assets/services/facial.jpg';
+import waxing from '@/assets/services/waxing.jpg';
+import threading from '@/assets/services/threading.jpg';
+import manicure from '@/assets/services/manicure.jpg';
+import bodyPolish from '@/assets/services/body-polish.jpg';
+import nailArt from '@/assets/services/nail-art.jpg';
+import hairTreatment from '@/assets/services/hair-treatment.jpg';
+import hairColor from '@/assets/services/hair-color.jpg';
 
 const makeupCategories = [
   {
@@ -17,24 +34,28 @@ const makeupCategories = [
     description: 'Perfect for daily wear and casual occasions',
     styles: ['No-Makeup Makeup', 'Light Makeup', 'Natural Makeup', 'Daily Wear Makeup'],
     price: '₹1,500 onwards',
+    image: everydayMakeup,
   },
   {
     name: 'Party & Evening',
     description: 'Glamorous looks for parties and special events',
     styles: ['Party Wear Makeup', 'Evening Makeup', 'Glam Makeup', 'Heavy Makeup'],
     price: '₹3,000 onwards',
+    image: partyMakeup,
   },
   {
     name: 'Occasion Makeup',
     description: 'Special looks for engagements and receptions',
     styles: ['Engagement Makeup', 'Reception Makeup', 'Traditional Makeup', 'Photoshoot Makeup'],
     price: '₹5,000 onwards',
+    image: occasionMakeup,
   },
   {
     name: 'Professional Makeup',
     description: 'HD & Airbrush techniques for flawless finish',
     styles: ['HD Makeup', 'Airbrush Makeup', 'Long-lasting Makeup', 'Camera-ready Makeup'],
     price: '₹6,000 onwards',
+    image: professionalMakeup,
   },
 ];
 
@@ -44,36 +65,40 @@ const hairstyleCategories = [
     description: 'Beautiful open hairstyles for any occasion',
     styles: ['Open Hair', 'Straight Hair', 'Curly Hair', 'Wavy Hair', 'Soft Curls', 'Beach Waves'],
     price: '₹800 onwards',
+    image: openHair,
   },
   {
     name: 'Updos & Buns',
     description: 'Elegant updo styles for formal events',
     styles: ['Messy Bun', 'Bridal Bun', 'Low Bun', 'High Bun', 'Side Bun', 'Twisted Bun'],
     price: '₹1,200 onwards',
+    image: updoBun,
   },
   {
     name: 'Braided Styles',
     description: 'Intricate braided hairstyles',
     styles: ['French Braid', 'Dutch Braid', 'Fishtail Braid', 'Side Braid', 'Waterfall Braid', 'Crown Braid'],
     price: '₹1,000 onwards',
+    image: braidedHair,
   },
   {
     name: 'Ponytails & More',
     description: 'Stylish ponytails and combinations',
     styles: ['High Ponytail', 'Low Ponytail', 'Sleek Ponytail', 'Curly Ponytail', 'Braided Ponytail'],
     price: '₹600 onwards',
+    image: ponytail,
   },
 ];
 
 const salonServices = [
-  { name: 'Facial & Clean-Up', price: '₹500+', description: 'Deep cleansing and rejuvenation', options: ['Basic Facial', 'Gold Facial', 'Diamond Facial', 'Fruit Facial', 'Clean-Up'] },
-  { name: 'Bleach & Waxing', price: '₹200+', description: 'Smooth and radiant skin', options: ['Face Bleach', 'Full Body Wax', 'Arms Wax', 'Legs Wax', 'Underarms'] },
-  { name: 'Threading', price: '₹50+', description: 'Precise hair removal', options: ['Eyebrows', 'Upper Lip', 'Forehead', 'Full Face', 'Chin'] },
-  { name: 'Manicure & Pedicure', price: '₹400+', description: 'Complete hand and foot care', options: ['Basic Manicure', 'Spa Manicure', 'Basic Pedicure', 'Spa Pedicure', 'Gel Polish'] },
-  { name: 'Body Polishing', price: '₹1,500+', description: 'Full body exfoliation and glow', options: ['Fruit Polish', 'Coffee Polish', 'Gold Polish', 'Chocolate Polish'] },
-  { name: 'Nail Art & Extensions', price: '₹500+', description: 'Creative nail designs', options: ['Simple Nail Art', 'Designer Nail Art', 'Gel Extensions', 'Acrylic Extensions', '3D Nail Art'] },
-  { name: 'Hair Protein Treatment', price: '₹2,000+', description: 'Hair repair and nourishment', options: ['Keratin Treatment', 'Protein Pack', 'Hair Spa', 'Deep Conditioning', 'Botox Treatment'] },
-  { name: 'Global Color', price: '₹3,000+', description: 'Professional hair coloring', options: ['Full Color', 'Root Touch-Up', 'Highlights', 'Balayage', 'Ombre'] },
+  { name: 'Facial & Clean-Up', price: '₹500+', description: 'Deep cleansing and rejuvenation', options: ['Basic Facial', 'Gold Facial', 'Diamond Facial', 'Fruit Facial', 'Clean-Up'], image: facial },
+  { name: 'Bleach & Waxing', price: '₹200+', description: 'Smooth and radiant skin', options: ['Face Bleach', 'Full Body Wax', 'Arms Wax', 'Legs Wax', 'Underarms'], image: waxing },
+  { name: 'Threading', price: '₹50+', description: 'Precise hair removal', options: ['Eyebrows', 'Upper Lip', 'Forehead', 'Full Face', 'Chin'], image: threading },
+  { name: 'Manicure & Pedicure', price: '₹400+', description: 'Complete hand and foot care', options: ['Basic Manicure', 'Spa Manicure', 'Basic Pedicure', 'Spa Pedicure', 'Gel Polish'], image: manicure },
+  { name: 'Body Polishing', price: '₹1,500+', description: 'Full body exfoliation and glow', options: ['Fruit Polish', 'Coffee Polish', 'Gold Polish', 'Chocolate Polish'], image: bodyPolish },
+  { name: 'Nail Art & Extensions', price: '₹500+', description: 'Creative nail designs', options: ['Simple Nail Art', 'Designer Nail Art', 'Gel Extensions', 'Acrylic Extensions', '3D Nail Art'], image: nailArt },
+  { name: 'Hair Protein Treatment', price: '₹2,000+', description: 'Hair repair and nourishment', options: ['Keratin Treatment', 'Protein Pack', 'Hair Spa', 'Deep Conditioning', 'Botox Treatment'], image: hairTreatment },
+  { name: 'Global Color', price: '₹3,000+', description: 'Professional hair coloring', options: ['Full Color', 'Root Touch-Up', 'Highlights', 'Balayage', 'Ombre'], image: hairColor },
 ];
 
 interface SalonService {
@@ -81,6 +106,7 @@ interface SalonService {
   price: string;
   description: string;
   options: string[];
+  image: string;
 }
 
 interface Category {
@@ -88,34 +114,85 @@ interface Category {
   description: string;
   styles: string[];
   price: string;
+  image: string;
 }
 
 interface CategoryCardProps {
   category: Category;
   onClick: () => void;
-  icon: React.ReactNode;
 }
 
-function CategoryCard({ category, onClick, icon }: CategoryCardProps) {
+function CategoryCard({ category, onClick }: CategoryCardProps) {
   return (
     <motion.div
-      whileHover={{ scale: 1.03, y: -2 }}
+      whileHover={{ scale: 1.03, y: -4 }}
       whileTap={{ scale: 0.98 }}
-      className="relative backdrop-blur-md bg-white/5 dark:bg-white/[0.03] border border-white/10 dark:border-white/5 rounded-2xl transition-all duration-300 cursor-pointer p-5 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.12)] hover:border-primary/30 hover:bg-white/10 dark:hover:bg-white/[0.06] overflow-hidden group"
+      className="relative backdrop-blur-md bg-card/80 border border-border/30 rounded-2xl transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:border-primary/40 overflow-hidden group"
       onClick={onClick}
     >
-      {/* Glass reflection effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-50 pointer-events-none" />
-      <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/20 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
+      {/* Image */}
+      <div className="relative h-48 overflow-hidden">
+        <img 
+          src={category.image} 
+          alt={category.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+        
+        {/* Price badge */}
+        <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-primary/90 text-primary-foreground text-xs font-semibold backdrop-blur-sm">
+          {category.price}
+        </div>
+      </div>
       
-      <div className="relative flex items-center gap-3">
-        <div className="p-2.5 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/10">
-          {icon}
+      {/* Content */}
+      <div className="relative p-4">
+        <h4 className="font-heading text-lg font-semibold text-foreground mb-1">{category.name}</h4>
+        <p className="text-sm text-muted-foreground line-clamp-2">{category.description}</p>
+        
+        {/* Hover indicator */}
+        <div className="flex items-center gap-2 mt-3 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span>View Styles</span>
+          <Sparkles className="w-4 h-4" />
         </div>
-        <div>
-          <h4 className="font-heading text-lg font-semibold text-foreground">{category.name}</h4>
-          <p className="text-sm text-muted-foreground">{category.description}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+interface SalonCardProps {
+  service: SalonService;
+  onClick: () => void;
+}
+
+function SalonCard({ service, onClick }: SalonCardProps) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.03, y: -4 }}
+      whileTap={{ scale: 0.98 }}
+      className="relative backdrop-blur-md bg-card/80 border border-border/30 rounded-2xl transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:border-primary/40 overflow-hidden group"
+      onClick={onClick}
+    >
+      {/* Image */}
+      <div className="relative h-32 overflow-hidden">
+        <img 
+          src={service.image} 
+          alt={service.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent" />
+        
+        {/* Price badge */}
+        <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-accent/90 text-accent-foreground text-xs font-semibold backdrop-blur-sm">
+          {service.price}
         </div>
+      </div>
+      
+      {/* Content */}
+      <div className="relative p-3">
+        <h4 className="font-heading text-sm font-semibold text-foreground">{service.name}</h4>
       </div>
     </motion.div>
   );
@@ -133,24 +210,35 @@ function ServiceModal({ category, isOpen, onClose, type }: ServiceModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md backdrop-blur-xl bg-gradient-elegant border border-border/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-        
-        <DialogHeader className="relative">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 rounded-xl backdrop-blur-sm bg-primary/10 border border-primary/20">
-              {type === 'makeup' ? (
-                <Sparkles className="w-5 h-5 text-primary" />
-              ) : (
-                <Scissors className="w-5 h-5 text-primary" />
-              )}
+      <DialogContent className="sm:max-w-lg backdrop-blur-xl bg-gradient-elegant border border-border/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)] p-0 overflow-hidden">
+        {/* Header Image */}
+        <div className="relative h-48 overflow-hidden">
+          <img 
+            src={category.image} 
+            alt={category.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl backdrop-blur-sm bg-primary/20 border border-primary/30">
+                {type === 'makeup' ? (
+                  <Sparkles className="w-5 h-5 text-primary" />
+                ) : (
+                  <Scissors className="w-5 h-5 text-primary" />
+                )}
+              </div>
+              <div>
+                <DialogTitle className="font-heading text-xl text-foreground">{category.name}</DialogTitle>
+                <DialogDescription className="text-foreground/70">{category.description}</DialogDescription>
+              </div>
             </div>
-            <DialogTitle className="font-heading text-xl">{category.name}</DialogTitle>
           </div>
-          <DialogDescription>{category.description}</DialogDescription>
-        </DialogHeader>
+        </div>
 
-        <div className="space-y-4 relative">
-
+        <div className="p-4 space-y-4">
+          <div className="text-primary font-semibold text-lg">{category.price}</div>
+          
           <div className="grid grid-cols-2 gap-3">
             {category.styles.map((style) => (
               <div
@@ -198,20 +286,19 @@ export function ServicesSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-12"
+          className="mb-16"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl md:text-3xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
             <Palette className="w-6 h-6 text-primary" />
             Makeup Styles We Offer
           </h3>
-          <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <p className="text-muted-foreground text-center mb-8 text-sm">Click on a category to see all styles</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {makeupCategories.map((category) => (
               <CategoryCard
                 key={category.name}
                 category={category}
                 onClick={() => setSelectedMakeup(category)}
-                icon={<Sparkles className="w-5 h-5 text-muted-foreground" />}
               />
             ))}
           </div>
@@ -222,20 +309,19 @@ export function ServicesSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className="mb-12"
+          className="mb-16"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl md:text-3xl font-semibold text-foreground text-center mb-2 flex items-center justify-center gap-2">
             <Scissors className="w-6 h-6 text-primary" />
             Hairstyle Options
           </h3>
-          <p className="text-muted-foreground text-center mb-6 text-sm">Click on a category to see all styles</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <p className="text-muted-foreground text-center mb-8 text-sm">Click on a category to see all styles</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {hairstyleCategories.map((category) => (
               <CategoryCard
                 key={category.name}
                 category={category}
                 onClick={() => setSelectedHair(category)}
-                icon={<Scissors className="w-5 h-5 text-muted-foreground" />}
               />
             ))}
           </div>
@@ -246,26 +332,18 @@ export function ServicesSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-3xl mx-auto"
         >
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-8 flex items-center justify-center gap-2">
+          <h3 className="font-heading text-2xl md:text-3xl font-semibold text-foreground text-center mb-8 flex items-center justify-center gap-2">
             <Heart className="w-6 h-6 text-primary" />
             Salon & Beauty Services
           </h3>
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {salonServices.map((addon) => (
-              <motion.div
-                key={addon.name}
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setSelectedSalon(addon)}
-                className="relative flex items-center justify-center p-5 backdrop-blur-md bg-white/5 dark:bg-white/[0.03] border border-white/10 dark:border-white/5 rounded-2xl transition-all duration-300 cursor-pointer text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_0_rgba(212,175,55,0.12)] hover:border-primary/30 hover:bg-white/10 dark:hover:bg-white/[0.06] overflow-hidden group"
-              >
-                {/* Glass reflection effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-50 pointer-events-none" />
-                <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-white/20 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
-                <span className="relative text-foreground font-medium">{addon.name}</span>
-              </motion.div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {salonServices.map((service) => (
+              <SalonCard
+                key={service.name}
+                service={service}
+                onClick={() => setSelectedSalon(service)}
+              />
             ))}
           </div>
         </motion.div>
@@ -287,18 +365,29 @@ export function ServicesSection() {
 
       {/* Salon Service Modal */}
       <Dialog open={!!selectedSalon} onOpenChange={() => setSelectedSalon(null)}>
-        <DialogContent className="sm:max-w-md backdrop-blur-xl bg-gradient-elegant border border-border/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-          <DialogHeader className="relative">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 rounded-xl backdrop-blur-sm bg-primary/10 border border-primary/20">
-                <Heart className="w-5 h-5 text-primary" />
+        <DialogContent className="sm:max-w-lg backdrop-blur-xl bg-gradient-elegant border border-border/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)] p-0 overflow-hidden">
+          {/* Header Image */}
+          <div className="relative h-48 overflow-hidden">
+            <img 
+              src={selectedSalon?.image} 
+              alt={selectedSalon?.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl backdrop-blur-sm bg-primary/20 border border-primary/30">
+                  <Heart className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <DialogTitle className="font-heading text-xl text-foreground">{selectedSalon?.name}</DialogTitle>
+                  <DialogDescription className="text-foreground/70">{selectedSalon?.description}</DialogDescription>
+                </div>
               </div>
-              <DialogTitle className="font-heading text-xl">{selectedSalon?.name}</DialogTitle>
             </div>
-            <DialogDescription>{selectedSalon?.description}</DialogDescription>
-          </DialogHeader>
+          </div>
 
-          <div className="space-y-4 relative">
+          <div className="p-4 space-y-4">
             <div className="text-primary font-semibold text-lg">{selectedSalon?.price}</div>
             
             <div className="grid grid-cols-2 gap-3">
