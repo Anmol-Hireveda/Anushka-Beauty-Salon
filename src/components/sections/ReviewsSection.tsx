@@ -401,20 +401,20 @@ export function ReviewsSection() {
           
           <motion.div
             className="flex gap-6"
-            animate={reviews.length > 4 ? {
-              x: [-(reviews.length * 320), 0],
-            } : {}}
-            transition={reviews.length > 4 ? {
+            animate={{
+              x: [0, -(reviews.length * 320)],
+            }}
+            transition={{
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: reviews.length * 5,
+                duration: Math.max(reviews.length * 4, 20),
                 ease: "linear",
               },
-            } : {}}
+            }}
           >
             {/* Duplicate reviews for seamless loop */}
-            {[...reviews, ...(reviews.length > 4 ? reviews : [])].map((review, index) => (
+            {[...reviews, ...reviews, ...reviews].map((review, index) => (
               <motion.div
                 key={`${review.id}-${index}`}
                 initial={{ opacity: 0, y: 30 }}
