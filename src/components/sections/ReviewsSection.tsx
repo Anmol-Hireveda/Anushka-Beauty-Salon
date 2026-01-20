@@ -401,7 +401,7 @@ export function ReviewsSection() {
           <motion.div
             className="flex gap-6"
             animate={reviews.length > 4 ? {
-              x: [0, -(reviews.length * 320)],
+              x: [-(reviews.length * 320), 0],
             } : {}}
             transition={reviews.length > 4 ? {
               x: {
