@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Phone, MapPin, Instagram, MessageCircle, Clock } from 'lucide-react';
+import { Phone, MapPin, Instagram, MessageCircle, Clock, Camera, UserCheck, Globe } from 'lucide-react';
 
 const contactInfo = [
   {
@@ -26,6 +26,24 @@ const contactInfo = [
     label: 'Hours',
     value: 'Mon-Sun: 9AM - 8PM',
     href: '#',
+  },
+];
+
+const highlights = [
+  {
+    icon: Camera,
+    title: 'Proceeding Shoot',
+    description: 'Professional makeup for all your shoot requirements',
+  },
+  {
+    icon: UserCheck,
+    title: 'Freelancer',
+    description: 'Flexible scheduling at your preferred location',
+  },
+  {
+    icon: Globe,
+    title: 'All India Booking',
+    description: 'We travel across India for your special occasions',
   },
 ];
 
@@ -96,12 +114,40 @@ export function ContactSection() {
           </motion.p>
         </motion.div>
 
+        {/* Highlights */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto"
+        >
+          {highlights.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              className="text-center p-6 bg-card border border-border rounded-lg hover:border-primary/50 transition-all group"
+            >
+              <div className="w-14 h-14 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <item.icon className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+                {item.title}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {item.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+
         <div className="max-w-2xl mx-auto">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="space-y-8"
           >
             <div className="space-y-6">
@@ -124,19 +170,6 @@ export function ContactSection() {
                   </div>
                 </a>
               ))}
-            </div>
-
-            <div className="section-divider" />
-
-            {/* Team */}
-            <div>
-              <h3 className="font-heading text-xl font-semibold text-foreground mb-4">
-                Our Team
-              </h3>
-              <div className="space-y-2 text-muted-foreground text-sm">
-                <p><span className="text-primary">MUA:</span> Sunita & Rajshree Prajapati</p>
-                <p><span className="text-primary">Hairstyle:</span> Anushka Prajapati & Harshita Prajapati</p>
-              </div>
             </div>
 
             <div className="section-divider" />
