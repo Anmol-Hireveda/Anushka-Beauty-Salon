@@ -60,15 +60,40 @@ export function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary text-sm uppercase tracking-[0.2em] font-medium">
-            Get in Touch
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-semibold text-foreground mt-4 mb-6">
-            Book Your <span className="text-gradient-gold">Appointment</span>
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.5 }}
+            className="inline-block mb-6"
+          >
+            <span className="inline-flex items-center gap-2 px-6 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-sm uppercase tracking-[0.2em] font-medium">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+              Get in Touch
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+            </span>
+          </motion.div>
+          
+          <h2 className="font-heading text-4xl md:text-6xl font-semibold text-foreground mb-6">
+            Book Your <br className="sm:hidden" />
+            <span className="text-gradient-gold relative">
+              Appointment
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={isInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 origin-left"
+              />
+            </span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-muted-foreground max-w-2xl mx-auto text-lg"
+          >
             Contact us for your special occasion. Let's make it more special with the soft glam look!
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="max-w-2xl mx-auto">
