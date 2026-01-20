@@ -84,6 +84,7 @@ export function ReviewsSection() {
 
   const [reviews, setReviews] = useState<Review[]>(staticReviews);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -419,7 +420,8 @@ export function ReviewsSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1 * (index % 4) }}
-                className="group flex-shrink-0 w-[300px]"
+                className="group flex-shrink-0 w-[300px] cursor-pointer"
+                onClick={() => setSelectedReview(review)}
               >
                 <div className="h-full p-6 bg-card border border-border hover:border-primary/30 transition-all duration-400 relative">
                   {/* Quote icon */}
@@ -476,6 +478,65 @@ export function ReviewsSection() {
             ))}
           </motion.div>
         </div>
+
+        {/* Full Review Dialog */}
+        <Dialog open={!!selectedReview} onOpenChange={(open) => !open && setSelectedReview(null)}>
+          <DialogContent className="sm:max-w-md bg-background border border-border">
+            <DialogHeader>
+              <DialogTitle className="text-foreground font-heading">Client Review</DialogTitle>
+            </DialogHeader>
+            {selectedReview && (
+              <div className="space-y-4">
+                {/* Client info */}
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+                    {selectedReview.profile_image_url ? (
+                      <img 
+                        src={selectedReview.profile_image_url} 
+                        alt={selectedReview.client_name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-primary font-heading text-2xl font-semibold">
+                        {selectedReview.client_name.charAt(0)}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <h4 className="font-heading font-semibold text-lg text-foreground">
+                      {selectedReview.client_name}
+                    </h4>
+                    {selectedReview.service_type && (
+                      <p className="text-sm text-primary uppercase tracking-wider">
+                        {selectedReview.service_type}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Rating */}
+                <div className="flex gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-5 h-5 ${
+                        i < selectedReview.rating ? 'text-primary fill-primary' : 'text-muted'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Full review text */}
+                <div className="p-4 bg-muted/30 rounded-lg">
+                  <Quote className="w-6 h-6 text-primary/30 mb-2" />
+                  <p className="text-foreground/90 leading-relaxed">
+                    "{selectedReview.review_text}"
+                  </p>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Stats */}
         <motion.div
