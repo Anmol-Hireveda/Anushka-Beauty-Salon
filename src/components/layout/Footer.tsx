@@ -116,7 +116,17 @@ export function Footer() {
               © {new Date().getFullYear()} Anushka Beauty Salon. All rights reserved.
             </p>
             <p className="text-sm text-muted-foreground flex items-center gap-1">
-              Made with <Heart className="w-4 h-4 text-primary fill-primary" /> in Jaipur
+              Made by{' '}
+              <a 
+                href="mailto:anmolpanchal0207@gmail.com" 
+                className="text-primary hover:underline font-medium relative group"
+                title="anmolpanchal0207@gmail.com"
+              >
+                Anmol
+                <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  anmolpanchal0207@gmail.com
+                </span>
+              </a>
             </p>
           </div>
         </div>
