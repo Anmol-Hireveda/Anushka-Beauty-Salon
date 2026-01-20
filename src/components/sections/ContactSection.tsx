@@ -1,11 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, MessageCircle, Send, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { Phone, MapPin, Instagram, MessageCircle, Clock } from 'lucide-react';
 
 const contactInfo = [
   {
@@ -50,59 +45,8 @@ const socialLinks = [
 ];
 
 export function ContactSection() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service_interest: '',
-    message: '',
-  });
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const { toast } = useToast();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const { data, error } = await supabase.functions.invoke('send-booking-email', {
-        body: formData,
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      toast({
-        title: '✅ Booking Request Sent!',
-        description: "Thank you for reaching out. We'll contact you soon!",
-      });
-
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service_interest: '',
-        message: '',
-      });
-    } catch (error: any) {
-      console.error('Error sending email:', error);
-      toast({
-        title: 'Error sending message',
-        description: 'Please try again or contact us via WhatsApp.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <section id="contact" className="py-24 lg:py-32 bg-background relative">
@@ -127,13 +71,13 @@ export function ContactSection() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
+        <div className="max-w-2xl mx-auto">
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
+            className="space-y-8"
           >
             <div className="space-y-6">
               {contactInfo.map((item) => (
@@ -191,143 +135,6 @@ export function ContactSection() {
                 ))}
               </div>
             </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="lg:col-span-3"
-          >
-            <form onSubmit={handleSubmit} className="p-8 bg-card border border-border">
-              <h3 className="font-heading text-2xl font-semibold text-foreground mb-6">
-                Send a Message
-              </h3>
-
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm text-muted-foreground mb-2">
-                    Your Name *
-                  </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your Name"
-                    required
-                    className="bg-secondary border-border focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm text-muted-foreground mb-2">
-                    Email Address *
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="your@email.com"
-                    required
-                    className="bg-secondary border-border focus:border-primary"
-                  />
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="phone" className="block text-sm text-muted-foreground mb-2">
-                    Phone Number
-                  </label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+91 99999 99999"
-                    className="bg-secondary border-border focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="service_interest" className="block text-sm text-muted-foreground mb-2">
-                    Service Interest
-                  </label>
-                  <select
-                    id="service_interest"
-                    name="service_interest"
-                    value={formData.service_interest}
-                    onChange={handleChange}
-                    className="w-full h-10 px-3 bg-secondary border border-border rounded-md text-foreground focus:border-primary focus:outline-none"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="Bridal Makeup">Bridal Makeup</option>
-                    <option value="Engagement Makeup">Engagement Makeup</option>
-                    <option value="Party Makeup">Party Makeup</option>
-                    <option value="Hair Services">Hair Services</option>
-                    <option value="Facial & Skin Treatment">Facial & Skin Treatment</option>
-                    <option value="Nail Art">Nail Art & Extensions</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm text-muted-foreground mb-2">
-                  Your Message *
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Tell us about your event, date, and any specific looks you have in mind..."
-                  rows={5}
-                  required
-                  className="bg-secondary border-border focus:border-primary resize-none"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12"
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center gap-2">
-                    <svg
-                      className="animate-spin h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    Sending...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Send className="w-5 h-5" />
-                    Send Message
-                  </span>
-                )}
-              </Button>
-            </form>
           </motion.div>
         </div>
       </div>
