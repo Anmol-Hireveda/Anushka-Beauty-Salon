@@ -124,7 +124,7 @@ export function HeroSection() {
           {[
             { value: '1000+', label: 'Happy Clients' },
             { value: '12+', label: 'Years Experience' },
-            { value: '500+', label: 'Bridal Looks' },
+            { value: '250+', label: 'Bridal Looks' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
